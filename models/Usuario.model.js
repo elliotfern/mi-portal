@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const { Schema, model } = require("mongoose");
 
 // TODO: Please make sure you edit the User model to whatever makes sense in this case
 const usuarioSchema = new Schema({
@@ -28,7 +28,7 @@ const usuarioSchema = new Schema({
 
   rol: {
     enum: ["admin", "user", "mod"],
-    default: "user",
+    default: ["user"],
   },
 
   telefono: {
@@ -51,6 +51,6 @@ const usuarioSchema = new Schema({
   ],
 });
 
-const Usuario = mongoose.model("Usuario", usuarioSchema);
+const Usuario = model("Usuario", usuarioSchema);
 
 module.exports = Usuario;

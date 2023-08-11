@@ -22,7 +22,7 @@ const solicitudSchema = new Schema(
         "alimentacion",
         "otros",
       ],
-      default: "user",
+      default: ["otros"],
     },
 
     imagen: {
@@ -46,7 +46,7 @@ const solicitudSchema = new Schema(
 
     estado: {
       enum: ["pendiente", "en progreso", "completado"],
-      default: "pendiente",
+      default: ["pendiente"],
     },
 
     valoracion: {
