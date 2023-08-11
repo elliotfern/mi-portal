@@ -14,6 +14,7 @@ const solicitudSchema = new Schema(
     },
 
     categoria: {
+      type: String,
       enum: [
         "bricolaje",
         "cuidados",
@@ -22,7 +23,7 @@ const solicitudSchema = new Schema(
         "alimentacion",
         "otros",
       ],
-      default: ["otros"],
+      default: "otros",
     },
 
     imagen: {
@@ -45,8 +46,9 @@ const solicitudSchema = new Schema(
     },
 
     estado: {
+      type: String,
       enum: ["pendiente", "en progreso", "completado"],
-      default: ["pendiente"],
+      default: "pendiente",
     },
 
     valoracion: {

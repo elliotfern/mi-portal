@@ -27,8 +27,9 @@ const usuarioSchema = new Schema({
   },
 
   rol: {
+    type: String,
     enum: ["admin", "user", "mod"],
-    default: ["user"],
+    default: "user",
   },
 
   telefono: {
