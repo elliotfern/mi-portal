@@ -12,10 +12,10 @@ router.get("/registro", (req, res, next) => {
 router.post("/registro", async (req, res, next) => {
   console.log(req.body);
 
-  const { usuario, correo, password } = req.body;
+  const { correo, password, nombreCompleto } = req.body;
 
   //esto es para que los campos deban ser rellenados
-  if (usuario === "" || correo === "" || password === "") {
+  if (correo === "" || password === "" || nombreCompleto === "") {
     res.status(400).render("./auth/registro.hbs", {
       errorMessage: "Todos los campos deben estar completos",
     });
@@ -34,9 +34,7 @@ router.post("/registro", async (req, res, next) => {
   }
   //encontrar usuario con credenciales iguales entre BD y form
   try {
-    const foundUser = await Usuario.findOne({
-      $or: [{ correo: correo }, { usuario: usuario }],
-    });
+    const foundUser = await Usuario.findOne({ correo: correo });
     console.log("coincidencia encontrada", foundUser);
 
     if (foundUser !== null) {
@@ -51,9 +49,9 @@ router.post("/registro", async (req, res, next) => {
     console.log(passwordHash);
 
     await Usuario.create({
-      usuario: usuario,
       correo: correo,
       password: passwordHash,
+      nombreCompleto: nombreCompleto,
     });
     res.redirect("/auth/login");
   } catch (error) {
@@ -83,35 +81,33 @@ router.post("/login", async (req, res, next) => {
       return;
     }
     //para validar si el password coincide entre BD y form
-    const isPasswordCorrect = await bcrypt.compare(password, foundUser.password)
-    console.log(isPasswordCorrect)
+    const isPasswordCorrect = await bcrypt.compare(
+      password,
+      foundUser.password
+    );
+    console.log(isPasswordCorrect);
 
     if (isPasswordCorrect === false) {
-        res.status(400).render("auth/login.hbs", {
-           errorMessage: "Contraseña no válida"   
-        })
+      res.status(400).render("auth/login.hbs", {
+        errorMessage: "Contraseña no válida",
+      });
 
-        return;
+      return;
     }
-
 
     //crear una sesión activa del usuario
 
     req.session.user = {
-        _id: foundUser._id,
-        correo: foundUser.correo,
-        rol: foundUser.rol
-    }
+      _id: foundUser._id,
+      correo: foundUser.correo,
+      rol: foundUser.rol,
+    };
     //guardamos en la sesión ifo del usuario que no debe cambiar
 
     req.session.save(() => {
-        res.redirect("/usuario")
-        //! YA TENEMOS ACCESO A REQ.SESSION.USER EN CUALQUIER LADO DE MI SERVIDOR
-    })
-
-
-
-
+      res.redirect("/usuario/perfil");
+      //! YA TENEMOS ACCESO A REQ.SESSION.USER EN CUALQUIER LADO DE MI SERVIDOR
+    });
   } catch (error) {
     next(error);
   }

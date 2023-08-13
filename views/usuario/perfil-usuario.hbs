@@ -1,0 +1,26 @@
+<div>
+  <h1>Bienvenido a tu perfil!</h1>
+
+  <p>Hola {{this.usuarioDetalles.nombreCompleto}}</p>
+  <p>Correo electrónico: {{this.usuarioDetalles.correo}}</p>
+  <img src="{{this.usuarioDetalles.imagen}}" width="300px" />
+
+  <h3>Cambiar la imagen de perfil</h3>
+
+  <form
+    action="/usuario/subir-imagen-perfil"
+    method="post"
+    enctype="multipart/form-data"
+  >
+
+    <label for="imagen">Imagen de perfil</label>
+    <input type="file" name="imagen" />
+
+    <button>Agregar</button>
+
+  </form>
+
+  <br />
+  <a href="/usuario/perfil/editar">Editar perfil</a>
+
+</div>
