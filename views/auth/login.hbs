@@ -1,13 +1,8 @@
 <div>
 
-<h1>¡Regístrate!</h1>
+<h1>¡Logueate!</h1>
 
-<form action="/auth/registro" method="post">
-
-<label for="usuario">Nombre de usuario</label>
-<input type="text" name="usuario">
-
-<br>
+<form action="/auth/login" method="post">
 
 <label for="correo">Correo electrónico</label>
 <input type="text" name="correo">
@@ -19,12 +14,12 @@
 
 <br>
 
-<button>Registrar</button>
+<button>Accede</button>
 
-{{#if errorMessage}} 
+{{!-- {{#if errorMessage}} 
 <br>
 {{errorMessage}}
-{{/if}}
+{{/if}} --}}
 
 </form>
     
