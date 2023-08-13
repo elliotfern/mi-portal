@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const { Schema, model } = require("mongoose");
 
 // TODO: Please make sure you edit the User model to whatever makes sense in this case
 const solicitudSchema = new Schema(
@@ -52,7 +52,7 @@ const solicitudSchema = new Schema(
     },
 
     valoracion: {
-      type: string,
+      type: String,
     },
   },
 
@@ -61,6 +61,6 @@ const solicitudSchema = new Schema(
   }
 );
 
-const Solicitud = mongoose.model("Solicitud", solicitudSchema);
+const Solicitud = model("Solicitud", solicitudSchema);
 
 module.exports = Solicitud;

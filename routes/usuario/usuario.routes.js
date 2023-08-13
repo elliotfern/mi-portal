@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 const Usuario = require("../../models/Usuario.model.js");
 
-const { isLoggedIn } =require("../../middlewares/auth.middlewares.js")
+const { isLoggedIn } = require("../../middlewares/auth.middlewares.js");
 
 const uploader = require("../../middlewares/cloudinary.middlewares.js");
 
@@ -43,15 +43,30 @@ router.post(
 
 //GET "usuario/perfil/:usuarioId/edit" => renderizar la vista de la página de edición del perfil de usuario
 router.get("/perfil/:usuarioId/edit", isLoggedIn, async (req, res, next) => {
-  console.log("info de usuario", req.params.usuarioId)
-  
-  const datosUsuario = await Usuario.findById(req.params.usuarioId)
-  res.render("./usuario/editar-perfil.hbs", {datosUsuario})
-})
+  console.log("info de usuario", req.params.usuarioId);
+  try {
+    const datosUsuario = await Usuario.findById(req.params.usuarioId);
+    res.render("./usuario/editar-perfil.hbs", { datosUsuario });
+  } catch (error) {
+    next(error);
+  }
+});
 
+// POST "usuario/perfil/:usuarioId/edit"
+router.post("/perfil/:usuarioId/edit", isLoggedIn, async (req, res, next) => {
+  const usuarioId = req.params.usuarioId;
+  const { nombreCompleto, correo } = req.body;
 
-
-
+  try {
+    await Usuario.findByIdAndUpdate(usuarioId, {
+      nombreCompleto: nombreCompleto,
+      correo: correo,
+    });
+    res.redirect(`/usuario/perfil/`);
+  } catch (error) {
+    next(error);
+  }
+});
 
 // exporta el fichero para poder connectar con él desde cualquier archivo
 module.exports = router;

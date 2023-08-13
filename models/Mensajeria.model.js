@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const { Schema, model } = require("mongoose");
 
 // TODO: Please make sure you edit the User model to whatever makes sense in this case
 const mensajeriaSchema = new Schema({
@@ -25,6 +25,6 @@ const mensajeriaSchema = new Schema({
   ],
 });
 
-const Mensajeria = mongoose.model("Mensajeria", mensajeriaSchema);
+const Mensajeria = model("Mensajeria", mensajeriaSchema);
 
 module.exports = Mensajeria;
