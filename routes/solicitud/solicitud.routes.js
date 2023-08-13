@@ -11,12 +11,14 @@ const uploader = require("../../middlewares/cloudinary.middlewares.js");
 // aqui van las rutas
 // GET "/solicitud/crear" => esto renderiza la vista del formulario de crar solicitudes
 router.get("/crear", isLoggedIn, (req, res, next) => {
-  res.render("./solicitud/crear-solicitud.hbs");
+  const usuarioCreador = req.session.user._id
+  console.log(usuarioCreador)
+  res.render("./solicitud/crear-solicitud.hbs", {usuarioCreador});
 });
 
 // POST "/solicitud/crear"
 router.post("/crear", isLoggedIn, async (req, res, next) => {
-  const { titulo, descripcion, categoria, fechaServicio } = req.body;
+  const { titulo, descripcion, categoria, fechaServicio, usuarioCreador } = req.body;
   console.log("solicitud creada: ", req.body);
   try {
     const respuesta = await Solicitud.create({
@@ -24,6 +26,7 @@ router.post("/crear", isLoggedIn, async (req, res, next) => {
       descripcion,
       categoria,
       fechaServicio,
+      usuarioCreador
     });
     console.log(respuesta);
     res.redirect(`/solicitud/${respuesta._id}/`);
@@ -32,8 +35,19 @@ router.post("/crear", isLoggedIn, async (req, res, next) => {
   }
 });
 
+// GET para renderizar la vista de la solicitud creada
 router.get("/:solicitudId", isLoggedIn, async (req, res, next) => {
-  res.render("./solicitud/detalles-solicitud.hbs");
+  try {
+    const solicitudObjecto = await Solicitud.findById(req.params.solicitudId)
+    .populate("usuarioCreador")
+    console.log("objeto", solicitudObjecto)
+
+   
+    res.render("./solicitud/detalles-solicitud.hbs", {solicitudObjecto});
+  } catch (error) {
+    next(error)
+  }
+  
 });
 
 // exporta el fichero para poder connectar con él desde cualquier archivo

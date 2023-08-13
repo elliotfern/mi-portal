@@ -3,6 +3,9 @@
 
   <form action="/solicitud/crear/" method="post">
 
+   
+    <input type="hidden" name="usuarioCreador" value="{{this.usuarioCreador}}" />
+
     <label for="titulo">Nombre de la solicitud</label>
     <input type="text" name="titulo" value="" />
 
