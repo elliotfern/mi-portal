@@ -1,0 +1,16 @@
+<div>
+
+    <form action="/perfil/{{this.datosUsuario._id}}/edit" method="post">
+
+     <label for="nombreCompleto">Nombre completo</label>
+     <input type="text" name="nombreCompleto" value="{{this.datosUsuario.nombreCompleto}}">
+
+     <br>
+
+     <label for="correo">Email</label>
+     <input type="text" name="correo" value="{{this.datosUsuario.correo}}">
+
+     <button>Confirmar</button>
+    
+    </form>
+</div>

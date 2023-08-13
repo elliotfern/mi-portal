@@ -12,8 +12,15 @@
    <body>
 
       <a href="/">Home</a>
+
+      {{#if isUserActive}}
+      <a href="/usuario/perfil">Tu perfil</a>
+      <a href="/auth/logout">Logout</a>
+      {{else}}
       <a href="/auth/registro">Registro</a>
       <a href="/auth/login">Login</a>
+      {{/if}}
+      
 
       {{{body}}}
 

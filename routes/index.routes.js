@@ -1,6 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
+// aqui ejecutamos la funcion que actualiza las variables locales en TODAS las llamadas
+const { updateLocals } = require("../middlewares/auth.middlewares.js")
+router.use(updateLocals)
+
 /* GET home page */
 router.get("/", (req, res, next) => {
   res.render("index");

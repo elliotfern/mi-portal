@@ -1,14 +1,15 @@
 // require
 const express = require("express");
 const router = express.Router();
-
 const Usuario = require("../../models/Usuario.model.js");
+
+const { isLoggedIn } =require("../../middlewares/auth.middlewares.js")
 
 const uploader = require("../../middlewares/cloudinary.middlewares.js");
 
 // rutas
 // GET "/usuario/perfil/:usuarioId" => renderizar la vista del usuario
-router.get("/perfil", async (req, res, next) => {
+router.get("/perfil", isLoggedIn, async (req, res, next) => {
   // hay que sacar el id de usuario desde la sesion abierta
   console.log(req.session.user);
   const usuarioId = req.session.user._id;
@@ -39,6 +40,18 @@ router.post(
     }
   }
 );
+
+//GET "usuario/perfil/:usuarioId/edit" => renderizar la vista de la página de edición del perfil de usuario
+router.get("/perfil/:usuarioId/edit", isLoggedIn, async (req, res, next) => {
+  console.log("info de usuario", req.params.usuarioId)
+  
+  const datosUsuario = await Usuario.findById(req.params.usuarioId)
+  res.render("./usuario/editar-perfil.hbs", {datosUsuario})
+})
+
+
+
+
 
 // exporta el fichero para poder connectar con él desde cualquier archivo
 module.exports = router;

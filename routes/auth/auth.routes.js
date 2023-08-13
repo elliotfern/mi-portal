@@ -113,4 +113,15 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
+//GET "/usuario/logout" => crear ruta para la desconexión de la sesión
+router.get("/logout", (req, res, next) => {
+
+  // 1 cerrar de la sesión
+  req.session.destroy(() => {
+    res.locals.isUserActive = false;
+    res.render("./auth/logout.hbs")
+  })
+ 
+})
+
 module.exports = router;
