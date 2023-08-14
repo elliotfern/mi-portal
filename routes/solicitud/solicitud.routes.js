@@ -30,21 +30,22 @@ router.post("/crear", isLoggedIn, async (req, res, next) => {
       usuarioCreador,
     });
     console.log(respuesta);
-    res.redirect(`/solicitud/${respuesta._id}/`);
+    res.redirect(`/solicitud/${respuesta._id}/detalles`);
   } catch (error) {
     next(error);
   }
 });
 
-// GET para renderizar la vista de la solicitud creada
-router.get("/:solicitudId", isLoggedIn, async (req, res, next) => {
+
+// GET para renderizar detalles de una solicitud creada por ID
+router.get("/:solicitudId/detalles", isLoggedIn, async (req, res, next) => {
   try {
     const solicitudOb = await Solicitud.findById(
       req.params.solicitudId
     ).populate("usuarioCreador");
     console.log("objeto", solicitudOb);
 
-    res.render("./solicitud/detalles-solicitud.hbs", { solicitudOb });
+    res.render("solicitud/detalles-solicitud.hbs", { solicitudOb });
   } catch (error) {
     next(error);
   }
@@ -62,7 +63,7 @@ router.post(
       await Solicitud.findByIdAndUpdate(req.body._id, {
         imagenSolicitud: req.file.path,
       });
-      res.redirect(`/solicitud/${req.body._id}`);
+      res.redirect(`/solicitud/${req.body._id}/detalles`);
     } catch (error) {
       next(error);
     }
@@ -119,11 +120,27 @@ router.post("/:solicitudId/editar", async (req, res, next) => {
       categoria: categoria,
       fechaServicio: fechaServicio,
     });
-    res.redirect(`/solicitud/${solicitudId}`);
+    res.redirect(`/solicitud/${solicitudId}/detalles`);
   } catch (error) {
     next(error);
   }
 });
+
+//GET "/solicitud/catalogo" => renderiza una vista con todas las solicitudes
+router.get("/catalogo", isLoggedIn, async (req, res, next) => {
+  try {
+    const todasSolPend = await Solicitud.find({estado: "pendiente"})
+    res.render("solicitud/catalogo.hbs", {todasSolPend})
+    console.log("todas las solicitudes pendientes", todasSolPend)
+  } catch (error) {
+    next(error)
+  }
+})
+
+
+
+
+
 
 // exporta el fichero para poder connectar con él desde cualquier archivo
 module.exports = router;

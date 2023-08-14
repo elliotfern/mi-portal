@@ -32,7 +32,7 @@ const solicitudSchema = new Schema(
 
     fechaServicio: {
       type: Date,
-      required: true,
+      // required: true,
     },
 
     usuarioCreador: {

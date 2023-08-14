@@ -1,0 +1,20 @@
+<div>
+
+<h1>Catálogo</h1>
+
+
+{{#each this.todasSolPend}}
+<div>
+<p>Título: {{this.titulo}}</p>
+<p>Descripción: {{this.descripcion}}</p>
+<img src="{{this.imagenSolicitud}}" alt="" width="200px">
+<a href="/solicitud/{{this._id}}/detalles">Ver más</a>
+</div>
+{{/each}}
+
+
+
+
+
+
+</div>

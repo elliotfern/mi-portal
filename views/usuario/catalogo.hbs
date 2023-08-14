@@ -1,0 +1,9 @@
+
+
+    {{#each this.todosUsuarios}}
+    <div>
+       <p>{{this.nombreCompleto}}</p> 
+       <img src="{{this.imagen}}" alt="" width="200px">
+       <a href="/usuario/{{this._id}}/detalles">Ver más</a>
+    </div>
+    {{/each}}

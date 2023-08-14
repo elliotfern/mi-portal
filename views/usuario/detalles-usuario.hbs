@@ -1,0 +1,10 @@
+<div>
+  <h3>{{this.usuarioObj.nombreCompleto}}</h3>
+  <p>Correo electrónico: {{this.usuarioObj.correo}}</p>
+  <img src="{{this.usuarioObj.imagen}}" width="300px" />
+  <br>
+  <form action="/usuario/{{this.usuarioObj._id}}/detalles" method="post">
+  <input type="hidden" name="_id" value="{{this.usuarioObj._id}}">
+  <button>Añadir a favoritos</button>
+  </form>
+</div>
