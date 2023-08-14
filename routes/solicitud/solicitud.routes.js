@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 const Usuario = require("../../models/Usuario.model.js");
 const Solicitud = require("../../models/Solicitud.model.js");
+const moment = require("moment"); // require
 
 const { isLoggedIn } = require("../../middlewares/auth.middlewares.js");
 
@@ -43,8 +44,9 @@ router.get("/:solicitudId/detalles", isLoggedIn, async (req, res, next) => {
       req.params.solicitudId
     ).populate("usuarioCreador");
     console.log("objeto", solicitudOb);
+    const dateFormat = moment(solicitudOb.fechaServicio).format("DD-MM-YYYY");
 
-    res.render("solicitud/detalles-solicitud.hbs", { solicitudOb });
+    res.render("solicitud/detalles-solicitud.hbs", { solicitudOb, dateFormat });
   } catch (error) {
     next(error);
   }
@@ -76,6 +78,10 @@ router.get("/:solicitudId/editar", isLoggedIn, async (req, res, next) => {
 
   try {
     const detallesSolicitud = await Solicitud.findById(solicitudId);
+    const dateFormat = moment(detallesSolicitud.fechaServicio).format(
+      "YYYY-MM-DD"
+    );
+    console.log("data", dateFormat);
 
     const categorias = [
       { name: "bricolaje", isSelected: false },
@@ -102,6 +108,7 @@ router.get("/:solicitudId/editar", isLoggedIn, async (req, res, next) => {
     res.render("./solicitud/editar-solicitud.hbs", {
       detallesSolicitud: detallesSolicitud,
       categoriaSeleccionada: cloneCategorias,
+      fechaFormat: dateFormat,
     });
   } catch (error) {
     next(error);
