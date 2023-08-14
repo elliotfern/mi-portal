@@ -68,39 +68,58 @@ router.post("/perfil/:usuarioId/edit", isLoggedIn, async (req, res, next) => {
   }
 });
 
-//GET usuario/catalogo catálogo que mostrará todos los perfiles de usuarios 
+//GET usuario/catalogo catálogo que mostrará todos los perfiles de usuarios
 router.get("/catalogo", isLoggedIn, async (req, res, next) => {
   try {
-     const todosUsuarios = await Usuario.find()
-     res.render("./usuario/catalogo.hbs", {todosUsuarios})
+    const todosUsuarios = await Usuario.find();
+    res.render("./usuario/catalogo.hbs", { todosUsuarios });
   } catch (error) {
-     next(error)
+    next(error);
   }
- 
-})
+});
 
 //GET usuario/:usuarioId/detalles esto accede al perfil de cada usuario
 router.get("/:usuarioId/detalles", isLoggedIn, async (req, res, next) => {
   try {
-    const usuarioObj = await Usuario.findById(req.params.usuarioId)
-    res.render("usuario/detalles-usuario.hbs", {usuarioObj})
-    console.log(usuarioObj)
+    const usuarioObj = await Usuario.findById(req.params.usuarioId);
+    res.render("usuario/detalles-usuario.hbs", { usuarioObj });
+    console.log(usuarioObj);
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
 
 //POST va a recibir la orden del formulario que añade a dicho vecino a "mis favoritos"
 router.post("/:usuarioId/detalles", isLoggedIn, async (req, res, next) => {
-  const usuarioFav = req.body._id
+  const usuarioFav = req.body._id;
   try {
-    const usuarioActualizado = await Usuario.findByIdAndUpdate(req.session.user._id, {favoritos: usuarioFav})
+    const usuarioActualizado = await Usuario.findByIdAndUpdate(
+      req.session.user._id,
+      { $push: { favoritos: usuarioFav } }
+    );
     // console.log(usuarioActualizado)
-    res.redirect(`/usuario/${req.session.user._id}/detalles`)
+    res.redirect(`/usuario/${req.session.user._id}/detalles`);
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
+
+//GET "usuario/:usuarioId/interacciones" => esto renderiza una vista con los usuarios favoritos y comentarios de cada usuario
+router.get("/:usuarioId/interacciones", isLoggedIn, async (req, res, next) => {
+  const usuarioId = req.params.usuarioId;
+
+  try {
+    const usuariosFavoritos = await Usuario.findById(usuarioId)
+      .select({ favoritos: 1 })
+      .populate("favoritos");
+    console.log("usuarios favoritos", usuariosFavoritos);
+    res.render("usuario/perfil-interacciones.hbs", {
+      dataUsuarios: usuariosFavoritos,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 
 // exporta el fichero para poder connectar con él desde cualquier archivo
 module.exports = router;

@@ -1,20 +1,19 @@
 <div>
 
-<h1>Catálogo</h1>
+  <h1>Catálogo de solicitudes pendientes</h1>
 
+  {{#each this.todasSolPend}}
+    <div>
+      <p>Título: {{this.titulo}}</p>
+      <p>Descripción: {{this.descripcion}}</p>
+      <img src="{{this.imagenSolicitud}}" alt="" width="200px" />
+      <a href="/solicitud/{{this._id}}/detalles">Ver más</a>
 
-{{#each this.todasSolPend}}
-<div>
-<p>Título: {{this.titulo}}</p>
-<p>Descripción: {{this.descripcion}}</p>
-<img src="{{this.imagenSolicitud}}" alt="" width="200px">
-<a href="/solicitud/{{this._id}}/detalles">Ver más</a>
-</div>
-{{/each}}
-
-
-
-
-
+      <br />
+      <form action="/solicitud/{{this._id}}/catalogo" method="post">
+        <button>¡Yo me encargo!</button>
+      </form>
+    </div>
+  {{/each}}
 
 </div>

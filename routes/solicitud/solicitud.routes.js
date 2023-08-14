@@ -36,7 +36,6 @@ router.post("/crear", isLoggedIn, async (req, res, next) => {
   }
 });
 
-
 // GET para renderizar detalles de una solicitud creada por ID
 router.get("/:solicitudId/detalles", isLoggedIn, async (req, res, next) => {
   try {
@@ -129,18 +128,28 @@ router.post("/:solicitudId/editar", async (req, res, next) => {
 //GET "/solicitud/catalogo" => renderiza una vista con todas las solicitudes
 router.get("/catalogo", isLoggedIn, async (req, res, next) => {
   try {
-    const todasSolPend = await Solicitud.find({estado: "pendiente"})
-    res.render("solicitud/catalogo.hbs", {todasSolPend})
-    console.log("todas las solicitudes pendientes", todasSolPend)
+    const todasSolPend = await Solicitud.find({ estado: "pendiente" });
+    res.render("solicitud/catalogo.hbs", { todasSolPend });
+    console.log("todas las solicitudes pendientes", todasSolPend);
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
 
-
-
-
-
+// POST "/solicitud/:solicitudId/catalogo" => boton que al clicar cambia el estado de una solicitud de pendiente a en progreso
+router.post("/:solicitudId/catalogo", isLoggedIn, async (req, res, next) => {
+  const solicitudId = req.params.solicitudId;
+  const usuarioLogeado = req.session.user._id;
+  try {
+    await Solicitud.findByIdAndUpdate(solicitudId, {
+      estado: "en progreso",
+      usuarioBeneficiario: usuarioLogeado,
+    });
+    res.redirect("/solicitud/catalogo");
+  } catch (error) {
+    next(error);
+  }
+});
 
 // exporta el fichero para poder connectar con él desde cualquier archivo
 module.exports = router;
