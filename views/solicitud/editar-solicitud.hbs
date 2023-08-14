@@ -1,0 +1,41 @@
+<div>
+<h2>Editar solicitud</h2>
+
+  <form action="/solicitud/{{this.detallesSolicitud._id}}/editar/" method="post">
+
+   
+    <input type="hidden" name="usuarioCreador" value="{{this.detallesSolicitud.usuarioCreador}}" />
+
+    <label for="titulo">Nombre de la solicitud</label>
+    <input type="text" name="titulo" value="{{this.detallesSolicitud.titulo}}" />
+
+<br>
+
+    <label for="descripcion">Descripción</label>
+    <textarea name="descripcion" rows="5" />
+    {{this.detallesSolicitud.descripcion}}
+    </textarea>
+
+<br>
+
+<label for="categoria">Categoría</label>
+ <select name="categoria">
+ {{#each this.categoriaSeleccionada }}
+ {{#if this.isSelected}}
+ <option value="{{this.name}}" selected="true">{{this.name}}</option>
+ {{else }}
+<option value="{{this.name}}">{{this.name}}</option>
+ {{/if}}
+ {{/each}}
+</select>
+<br>
+
+    <label for="fechaServicio">Fecha deseada</label>
+     <input type="date" name="fechaServicio" value="{{this.detallesSolicitud.fechaServicio}}" />
+<br>
+
+
+<button>Editar solicitud</button>
+  </form>
+
+  </div>

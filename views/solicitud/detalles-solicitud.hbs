@@ -1,28 +1,26 @@
 <h1> Tu solicitud </h1>
 
-{{this.solicitudObjecto}}
-{{this.solicitudObjeto.imagenSolicitud}}
-
-
-<h3>{{this.solicitudObjecto.titulo}}</h3>
-<p>Solicitante: {{this.solicitudObjecto.usuarioCreador.nombreCompleto}}</p>
-<p>Descripción: {{this.solicitudObjecto.descripcion}}</p>
-<p>Categoría: {{this.solicitudObjecto.categoria}}</p>
-<p>Fecha de servicio: {{this.solicitudObjecto.fechaServicio}}</p>
-<img src="{{this.solicitudObjeto.imagenSolicitud}}" alt=""/> 
+<h3>{{this.solicitudOb.titulo}}</h3>
+<p>Solicitante: {{this.solicitudOb.usuarioCreador.nombreCompleto}}</p>
+<p>Descripción: {{this.solicitudOb.descripcion}}</p>
+<p>Categoría: {{this.solicitudOb.categoria}}</p>
+<p>Fecha de servicio: {{this.solicitudOb.fechaServicio}}</p>
+<img src="{{this.solicitudOb.imagenSolicitud}}" alt="" width="300px" />
 <h3>Cambiar la imagen de perfil</h3>
 
-  <form
-    action="/solicitud/subir-imagen-solicitud"
-    method="post"
-    enctype="multipart/form-data"
-  >
+<form
+  action="/solicitud/subir-imagen-solicitud"
+  method="post"
+  enctype="multipart/form-data"
+>
 
-    <input type="hidden" name="_id" value="{{this.solicitudObjecto._id}}">
+  <input type="hidden" name="_id" value="{{this.solicitudOb._id}}" />
 
-    <label for="imagenSolicitud">Imagen de la solicitud</label>
-    <input type="file" name="imagenSolicitud" />
+  <label for="imagenSolicitud">Imagen de la solicitud</label>
+  <input type="file" name="imagenSolicitud" />
 
-    <button>Agregar</button>
+  <button>Agregar</button>
 
-  </form>
+</form>
+
+<a href="/solicitud/{{this.solicitudOb._id}}/editar">Editar solicitud</a>
