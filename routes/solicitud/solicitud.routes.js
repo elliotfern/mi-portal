@@ -50,5 +50,24 @@ router.get("/:solicitudId", isLoggedIn, async (req, res, next) => {
   
 });
 
+//POST => subir la imagen
+router.post(
+  "/subir-imagen-solicitud",
+  uploader.single("imagenSolicitud"),
+  async (req, res, next) => {
+    console.log("fichero de la imagen de perfil", req.file);
+    console.log("id de la solicitud", req.body._id)
+
+    try {
+      await Solicitud.findByIdAndUpdate(req.body._id, {
+        imagenSolicitud: req.file.path,
+      });
+      res.redirect(`/solicitud/${req.body._id}`);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 // exporta el fichero para poder connectar con él desde cualquier archivo
 module.exports = router;

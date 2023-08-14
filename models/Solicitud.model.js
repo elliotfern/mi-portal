@@ -26,7 +26,7 @@ const solicitudSchema = new Schema(
       default: "otros",
     },
 
-    imagen: {
+    imagenSolicitud: {
       type: String,
     },
 
