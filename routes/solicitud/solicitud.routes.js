@@ -135,7 +135,8 @@ router.post("/:solicitudId/editar", async (req, res, next) => {
 //GET "/solicitud/catalogo" => renderiza una vista con todas las solicitudes
 router.get("/catalogo", isLoggedIn, async (req, res, next) => {
   try {
-    const todasSolPend = await Solicitud.find({ estado: "pendiente" });
+    const todasSolPend = await Solicitud.find({ estado: "pendiente" })
+    .populate("usuarioCreador")
     res.render("solicitud/catalogo.hbs", { todasSolPend });
     console.log("todas las solicitudes pendientes", todasSolPend);
   } catch (error) {
@@ -163,7 +164,9 @@ router.get("/catalogo/completadas", isLoggedIn, async (req, res, next) => {
   try {
     const solicitudesCompletadas = await Solicitud.find({
       estado: "completado",
-    });
+    })
+    .populate("usuarioCreador")
+    .populate("usuarioPrestante")
     res.render("solicitud/catalogo-completadas.hbs", {
       solicitudesCompletadas,
     });
@@ -173,3 +176,5 @@ router.get("/catalogo/completadas", isLoggedIn, async (req, res, next) => {
 });
 // exporta el fichero para poder connectar con él desde cualquier archivo
 module.exports = router;
+
+

@@ -144,6 +144,26 @@ router.get(
   }
 );
 
+//POST "usuario/perfil/mis-prestadas" => recibe la orden del form y elimina la solicitud
+router.post("/perfil/mis-solicitudes-prestadas",isLoggedIn, async (req, res, next) => {
+  try {
+    await Solicitud.findByIdAndDelete(req.body._id)
+    res.redirect("/usuario/perfil/mis-solicitudes-prestadas")
+  } catch (error) {
+    next(error)
+  }
+})
+
+//POST "usuario/perfil/mis-prestadas/completadas" => recibe la orden del form y lleva la solicitud al catálogo de solicitudes completadas
+router.post("/perfil/mis-solicitudes-prestadas/completadas", isLoggedIn, async (req, res, next) => {
+  try {
+    await Solicitud.findByIdAndUpdate(req.body._id, {estado: "completado"})
+    res.redirect("/solicitud/catalogo/completadas")
+  } catch (error) {
+    next(error)
+  }
+})
+
 // GET "usuario/perfil/mis-solicitudes-creadas"
 router.get("/perfil/mis-solicitudes-creadas", isLoggedIn, async (req, res, next) => {
   try {
@@ -180,5 +200,14 @@ router.get(
   }
 );
 
+//GET "usuario/perfil/historial-solicitudes-creadas-completadas" => esto renderiza una vista con el historial de solicitudes creadas completadas
+router.get("/perfil/historial-solicitudes-creadas-completadas", isLoggedIn, async (req, res, next) => {
+try {
+  const todasSolCompletadas = await Solicitud.findById(req.session.user._id, {estado: "completado"})
+  res.render("./usuario/historial-creadas-completadas.hbs", {todasSolCompletadas})
+} catch (error) {
+  next(error)
+}
+})
 // exporta el fichero para poder connectar con él desde cualquier archivo
 module.exports = router;

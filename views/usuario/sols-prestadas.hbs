@@ -1,6 +1,6 @@
 <div>
 
-  <h1>Mis solicitudes prestadas</h1>
+  <h1>Mis solicitudes prestadas en curso</h1>
 
   {{#each this.solEnProg}}
     <div>
@@ -8,8 +8,15 @@
       <p>Descripción: {{this.descripcion}}</p>
       <p>Prestante: {{this.usuarioPrestante.nombreCompleto}}</p>
       <p>Solicitante: {{this.usuarioCreador.nombreCompleto}}</p>
-      <img src="{{this.imagenSolicitud}}" alt="" />
-
+      <img src="{{this.imagenSolicitud}}" alt="" width="300px"/>
+      <form action="/usuario/perfil/mis-solicitudes-prestadas" method="post">
+        <button>Eliminar solicitud</button>
+        <input type="hidden" name="_id" value="{{this._id}}">
+      </form>
+      <form action="/usuario/perfil/mis-solicitudes-prestadas/completadas" method="post">
+        <button>¡Solicitud completada!</button>
+        <input type="hidden" name="_id" value="{{this._id}}">
+      </form>
     </div>
   {{/each}}
 
