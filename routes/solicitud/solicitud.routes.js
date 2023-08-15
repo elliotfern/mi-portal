@@ -5,7 +5,7 @@ const Usuario = require("../../models/Usuario.model.js");
 const Solicitud = require("../../models/Solicitud.model.js");
 const moment = require("moment"); // require
 
-const { isLoggedIn } = require("../../middlewares/auth.middlewares.js");
+const { isLoggedIn, isAdmin } = require("../../middlewares/auth.middlewares.js");
 
 const uploader = require("../../middlewares/cloudinary.middlewares.js");
 
@@ -132,11 +132,12 @@ router.post("/:solicitudId/editar", async (req, res, next) => {
   }
 });
 
-//GET "/solicitud/catalogo" => renderiza una vista con todas las solicitudes
-router.get("/catalogo", isLoggedIn, async (req, res, next) => {
+//GET "/solicitud/catalogo" => renderiza una vista con todas las solicitudes pendientes
+router.get("/catalogo", isLoggedIn, isAdmin, async (req, res, next) => {
+  console.log("usuario", req.session.user.rol)
   try {
     const todasSolPend = await Solicitud.find({ estado: "pendiente" })
-    .populate("usuarioCreador")
+      .populate("usuarioCreador")
     res.render("solicitud/catalogo.hbs", { todasSolPend });
     console.log("todas las solicitudes pendientes", todasSolPend);
   } catch (error) {
@@ -160,13 +161,13 @@ router.post("/:solicitudId/catalogo", isLoggedIn, async (req, res, next) => {
 });
 
 //GET "/solicitud/catalogo/completadas" => vista para mostrar el historial de solicitudes completadas
-router.get("/catalogo/completadas", isLoggedIn, async (req, res, next) => {
+router.get("/catalogo/completadas", isLoggedIn, isAdmin, async (req, res, next) => {
   try {
     const solicitudesCompletadas = await Solicitud.find({
       estado: "completado",
     })
-    .populate("usuarioCreador")
-    .populate("usuarioPrestante")
+      .populate("usuarioCreador")
+      .populate("usuarioPrestante")
     res.render("solicitud/catalogo-completadas.hbs", {
       solicitudesCompletadas,
     });

@@ -7,6 +7,16 @@ function isLoggedIn(req, res, next) {
   }
 }
 
+function isAdmin(req, res, next) {
+  //si el usuario es admin
+  if (req.session.user.rol === "admin") {
+    res.locals.isUserAdmin = true;
+  } else {
+    res.locals.isUserAdmin = false;
+  }
+  next()
+}
+
 function updateLocals(req, res, next) {
   if (req.session.user === undefined) {
     res.locals.isUserActive = false;
@@ -19,5 +29,6 @@ function updateLocals(req, res, next) {
 
 module.exports = {
   isLoggedIn: isLoggedIn,
-  updateLocals: updateLocals
+  updateLocals: updateLocals,
+  isAdmin: isAdmin
 };

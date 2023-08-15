@@ -14,6 +14,13 @@
       <form action="/solicitud/{{this._id}}/catalogo" method="post">
         <button>¡Yo me encargo!</button>
       </form>
+
+      {{#if ../isUserAdmin }}
+<form action="/usuario/perfil/mis-solicitudes-prestadas" method="post">
+        <button>Eliminar solicitud</button>
+        <input type="hidden" name="_id" value="{{this._id}}">
+      </form>
+      {{/if}}
       <hr>
     </div>
   {{/each}}

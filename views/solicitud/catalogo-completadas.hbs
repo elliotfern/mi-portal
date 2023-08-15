@@ -10,6 +10,14 @@
       <p>Descripción: {{this.descripcion}}</p>
       <img src="{{this.imagenSolicitud}}" alt="" width="200px" />
       <p><a href="/solicitud/{{this._id}}/detalles">Ver más</a></p>
+
+         {{#if ../isUserAdmin }}
+<form action="/usuario/perfil/mis-solicitudes-prestadas" method="post">
+        <button>Eliminar solicitud</button>
+        <input type="hidden" name="_id" value="{{this._id}}">
+      </form>
+      {{/if}}
+      
 <hr>
     </div>
   {{/each}}
