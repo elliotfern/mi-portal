@@ -4,15 +4,13 @@
 
   {{#each this.solicitudesCompletadas}}
     <div>
-      <p>Título: {{this.titulo}}</p>
+      <h3>Título: {{this.titulo}}</h3>
       <p>Solicitante: <a href="/usuario/{{this.usuarioCreador._id}}/detalles">{{this.usuarioCreador.nombreCompleto}}</p></a> 
       <p>Prestante: <a href="/usuario/{{this.usuarioPrestante._id}}/detalles">{{this.usuarioPrestante.nombreCompleto}}</p></a> 
       <p>Descripción: {{this.descripcion}}</p>
       <img src="{{this.imagenSolicitud}}" alt="" width="200px" />
-      <a href="/solicitud/{{this._id}}/detalles">Ver más</a>
-
-      <br />
-
+      <p><a href="/solicitud/{{this._id}}/detalles">Ver más</a></p>
+<hr>
     </div>
   {{/each}}
 

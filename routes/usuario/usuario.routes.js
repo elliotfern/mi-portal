@@ -145,7 +145,7 @@ router.get(
 );
 
 //POST "usuario/perfil/mis-prestadas" => recibe la orden del form y elimina la solicitud
-router.post("/perfil/mis-solicitudes-prestadas",isLoggedIn, async (req, res, next) => {
+router.post("/perfil/mis-solicitudes-prestadas", isLoggedIn, async (req, res, next) => {
   try {
     await Solicitud.findByIdAndDelete(req.body._id)
     res.redirect("/usuario/perfil/mis-solicitudes-prestadas")
@@ -157,7 +157,7 @@ router.post("/perfil/mis-solicitudes-prestadas",isLoggedIn, async (req, res, nex
 //POST "usuario/perfil/mis-prestadas/completadas" => recibe la orden del form y lleva la solicitud al catálogo de solicitudes completadas
 router.post("/perfil/mis-solicitudes-prestadas/completadas", isLoggedIn, async (req, res, next) => {
   try {
-    await Solicitud.findByIdAndUpdate(req.body._id, {estado: "completado"})
+    await Solicitud.findByIdAndUpdate(req.body._id, { estado: "completado" })
     res.redirect("/solicitud/catalogo/completadas")
   } catch (error) {
     next(error)
@@ -181,33 +181,35 @@ router.get("/perfil/mis-solicitudes-creadas", isLoggedIn, async (req, res, next)
   }
 })
 
-//GET "usuario/perfil/mis-solicitudes-completadas" => esto renderiza una vista con todas las solicitudes completadas en las que el usuario está implicado
-router.get(
-  "/perfil/mis-solicitudes-completadas",
-  isLoggedIn,
-  async (req, res, next) => {
-    try {
-      const usuarioPrestId = req.session.user._id;
-      const solCompletadas = await Solicitud.find({
-        $and: [{ estado: "completada" }, { usuarioPrestante: usuarioPrestId }],
-      })
-        .populate("usuarioPrestante")
-        .populate("usuarioCreador");
-      res.render("", { solCompletadas });
-    } catch (error) {
-      next(error);
-    }
+//GET "usuario/perfil/historial-solicitudes-prestante-completadas" => esto renderiza una vista con todas las solicitudes completadas en las que el usuario está implicado
+router.get("/perfil/historial-solicitudes-prestante-completadas", isLoggedIn, async (req, res, next) => {
+  try {
+    const usuarioPrestId = req.session.user._id;
+    const solCompletadas = await Solicitud.find({
+      $and: [{ estado: "completado" }, { usuarioPrestante: usuarioPrestId }],
+    })
+      .populate("usuarioPrestante")
+      .populate("usuarioCreador");
+    res.render("./usuario/historial-prestantes-completadas.hbs", { solCompletadas });
+  } catch (error) {
+    next(error);
   }
+}
 );
 
 //GET "usuario/perfil/historial-solicitudes-creadas-completadas" => esto renderiza una vista con el historial de solicitudes creadas completadas
 router.get("/perfil/historial-solicitudes-creadas-completadas", isLoggedIn, async (req, res, next) => {
-try {
-  const todasSolCompletadas = await Solicitud.findById(req.session.user._id, {estado: "completado"})
-  res.render("./usuario/historial-creadas-completadas.hbs", {todasSolCompletadas})
-} catch (error) {
-  next(error)
-}
+  try {
+    const todasSolCompletadas = await Solicitud.find({
+      $and: [{ estado: "completado" }, { usuarioCreador: req.session.user._id }],
+    })
+      .populate("usuarioPrestante")
+      .populate("usuarioCreador")
+    console.log("todas las solicitudes completadas segun el usuario creador id session:", todasSolCompletadas)
+    res.render("./usuario/historial-creadas-completadas.hbs", { todasSolCompletadas })
+  } catch (error) {
+    next(error)
+  }
 })
 // exporta el fichero para poder connectar con él desde cualquier archivo
 module.exports = router;

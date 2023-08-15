@@ -1,14 +1,14 @@
 <div>
 
-<h1>Historial de solicitudes completadas</h1>
+  <h1>Historial de solicitudes completadas</h1>
 
- {{#each this.todasSolCompletadas}}
+  {{#each this.todasSolCompletadas}}
     <div>
       <h3>Título: {{this.titulo}}</h3>
       <p>Descripción: {{this.descripcion}}</p>
       <p>Prestante: {{this.usuarioPrestante.nombreCompleto}}</p>
       <p>Solicitante: {{this.usuarioCreador.nombreCompleto}}</p>
-      <img src="{{this.imagenSolicitud}}" alt="" />
+      <img src="{{this.imagenSolicitud}}" alt="" width="300px" />
     </div>
   {{/each}}
 
