@@ -1,0 +1,16 @@
+<div>
+
+  <h1>Mis solicitudes prestadas</h1>
+
+  {{#each this.solEnProg}}
+    <div>
+      <h3>Título: {{this.titulo}}</h3>
+      <p>Descripción: {{this.descripcion}}</p>
+      <p>Prestante: {{this.usuarioPrestante.nombreCompleto}}</p>
+      <p>Solicitante: {{this.usuarioCreador.nombreCompleto}}</p>
+      <img src="{{this.imagenSolicitud}}" alt="" />
+
+    </div>
+  {{/each}}
+
+</div>

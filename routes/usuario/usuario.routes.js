@@ -122,24 +122,63 @@ router.get("/:usuarioId/interacciones", isLoggedIn, async (req, res, next) => {
   }
 });
 
-//GET "usuario/perfil/mis-solicitudes-en-progreso" => esto renderiza una vista con todas las solicitudes activas en curso en las que el usuario está implicado
-// ! "usuarioBeneficiario es el que presta el servicio, le que se adjudica la solicitud"
-// router.get("/perfil/mis-solicitudes-en-progreso", isLoggedIn, async (req, res, next) => {
-// //1 Buscar todas las solicitudes con el estado "en progreso"
-// try {
- 
-//   const usuarioPrestId = req.session.user._id;
-//   const solEnProg = await Solicitud.find({$and: [{estado: "en progreso"}, {or: [usuarioBeneficiario: usuarioPrestId}, {usuarioCreador: usuarioCreador}]]})
-//   .populate("usuarioBeneficiario") //{ $or: [ property: value }, { property: value } ] }
-//   .populate("usuarioCreador")
-  
+//GET "usuario/perfil/mis-prestadas" => esto renderiza una vista con todas las solicitudes activas en curso en las que el usuario está implicado
+router.get(
+  "/perfil/mis-solicitudes-prestadas",
+  isLoggedIn,
+  async (req, res, next) => {
+    //1 Buscar todas las solicitudes con el estado "en progreso"
+    try {
+      const usuarioPrestId = req.session.user._id;
+      const solEnProg = await Solicitud.find({
+        $and: [{ estado: "en progreso" }, { usuarioPrestante: usuarioPrestId }],
+      })
+        .populate("usuarioPrestante") //{ $or: [ property: value }, { property: value } ] }
+        .populate("usuarioCreador");
 
-//   console.log("muestrame todas las solicitudes en progreso", solEnProg)
-//   res.render("./usuario/sols-en-progreso.hbs", {solEnProg})
-// } catch (error) {
-//   next(error)
-// }
+      console.log("muestrame todas las solicitudes prestadas", solEnProg);
+      res.render("./usuario/sols-prestadas.hbs", { solEnProg });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
-// })
+// GET "usuario/perfil/mis-solicitudes-creadas"
+router.get("/perfil/mis-solicitudes-creadas", isLoggedIn, async (req, res, next) => {
+  try {
+    const usuarioCreadorId = req.session.user._id;
+    const solUsuarioCreador = await Solicitud.find({
+      $and: [{ estado: "en progreso" }, { usuarioCreador: usuarioCreadorId }],
+    })
+      .populate("usuarioPrestante") //{ $or: [ property: value }, { property: value } ] }
+      .populate("usuarioCreador");
+
+    console.log("muestrame todas las solicitudes del creador", solUsuarioCreador);
+    res.render("./usuario/sols-creadas.hbs", { solUsuarioCreador });
+  } catch (error) {
+    next(error)
+  }
+})
+
+//GET "usuario/perfil/mis-solicitudes-completadas" => esto renderiza una vista con todas las solicitudes completadas en las que el usuario está implicado
+router.get(
+  "/perfil/mis-solicitudes-completadas",
+  isLoggedIn,
+  async (req, res, next) => {
+    try {
+      const usuarioPrestId = req.session.user._id;
+      const solCompletadas = await Solicitud.find({
+        $and: [{ estado: "completada" }, { usuarioPrestante: usuarioPrestId }],
+      })
+        .populate("usuarioPrestante")
+        .populate("usuarioCreador");
+      res.render("", { solCompletadas });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 // exporta el fichero para poder connectar con él desde cualquier archivo
 module.exports = router;

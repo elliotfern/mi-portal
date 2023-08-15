@@ -1,0 +1,21 @@
+<div>
+
+  <h1>Mis solicitudes creadas</h1>
+
+  {{#each this.solUsuarioCreador}}
+    <div>
+      <h3>Título: {{this.titulo}}</h3>
+      <p>Descripción: {{this.descripcion}}</p>
+      <p>Prestante: {{this.usuarioPrestante.nombreCompleto}}</p>
+      <p>Solicitante: {{this.usuarioCreador.nombreCompleto}}</p>
+      <img src="{{this.imagenSolicitud}}" alt="" />
+
+      <br />
+      <form action="/solicitud/{{this._id}}/catalogo" method="post">
+        <button>¡Solicitud completada!</button>
+      </form>
+
+    </div>
+  {{/each}}
+
+</div>

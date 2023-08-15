@@ -40,7 +40,8 @@ const solicitudSchema = new Schema(
       ref: "Usuario",
     },
 
-    usuarioBeneficiario: {
+    // no tocar nunca jamás
+    usuarioPrestante: {
       type: Schema.Types.ObjectId,
       ref: "Usuario",
     },

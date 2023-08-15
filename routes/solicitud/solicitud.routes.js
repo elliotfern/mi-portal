@@ -150,7 +150,7 @@ router.post("/:solicitudId/catalogo", isLoggedIn, async (req, res, next) => {
   try {
     await Solicitud.findByIdAndUpdate(solicitudId, {
       estado: "en progreso",
-      usuarioBeneficiario: usuarioLogeado,
+      usuarioPrestante: usuarioLogeado,
     });
     res.redirect("/solicitud/catalogo");
   } catch (error) {
@@ -158,5 +158,18 @@ router.post("/:solicitudId/catalogo", isLoggedIn, async (req, res, next) => {
   }
 });
 
+//GET "/solicitud/catalogo/completadas" => vista para mostrar el historial de solicitudes completadas
+router.get("/catalogo/completadas", isLoggedIn, async (req, res, next) => {
+  try {
+    const solicitudesCompletadas = await Solicitud.find({
+      estado: "completado",
+    });
+    res.render("solicitud/catalogo-completadas.hbs", {
+      solicitudesCompletadas,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 // exporta el fichero para poder connectar con él desde cualquier archivo
 module.exports = router;
