@@ -2,6 +2,7 @@
 const express = require("express");
 const router = express.Router();
 const Usuario = require("../../models/Usuario.model.js");
+const Solicitud = require("../../models/Solicitud.model.js");
 
 const { isLoggedIn } = require("../../middlewares/auth.middlewares.js");
 
@@ -121,5 +122,24 @@ router.get("/:usuarioId/interacciones", isLoggedIn, async (req, res, next) => {
   }
 });
 
+//GET "usuario/perfil/mis-solicitudes-en-progreso" => esto renderiza una vista con todas las solicitudes activas en curso en las que el usuario está implicado
+// ! "usuarioBeneficiario es el que presta el servicio, le que se adjudica la solicitud"
+// router.get("/perfil/mis-solicitudes-en-progreso", isLoggedIn, async (req, res, next) => {
+// //1 Buscar todas las solicitudes con el estado "en progreso"
+// try {
+ 
+//   const usuarioPrestId = req.session.user._id;
+//   const solEnProg = await Solicitud.find({$and: [{estado: "en progreso"}, {or: [usuarioBeneficiario: usuarioPrestId}, {usuarioCreador: usuarioCreador}]]})
+//   .populate("usuarioBeneficiario") //{ $or: [ property: value }, { property: value } ] }
+//   .populate("usuarioCreador")
+  
+
+//   console.log("muestrame todas las solicitudes en progreso", solEnProg)
+//   res.render("./usuario/sols-en-progreso.hbs", {solEnProg})
+// } catch (error) {
+//   next(error)
+// }
+
+// })
 // exporta el fichero para poder connectar con él desde cualquier archivo
 module.exports = router;
