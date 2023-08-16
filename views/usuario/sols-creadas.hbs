@@ -3,19 +3,37 @@
   <h1>Mis solicitudes creadas en curso</h1>
 
   {{#each this.solUsuarioCreador}}
-    <div>
-      <h3>Título: {{this.titulo}}</h3>
-      <p>Descripción: {{this.descripcion}}</p>
-      <p>Prestante: {{this.usuarioPrestante.nombreCompleto}}</p>
-      <p>Solicitante: {{this.usuarioCreador.nombreCompleto}}</p>
-      <img src="{{this.imagenSolicitud}}" alt="" width="300px" />
+  <div>
+    <h3>Título: {{this.titulo}}</h3>
+    <p>Descripción: {{this.descripcion}}</p>
+    <p>Prestante: {{this.usuarioPrestante.nombreCompleto}}</p>
+    <p>Solicitante: {{this.usuarioCreador.nombreCompleto}}</p>
+    <img src="{{this.imagenSolicitud}}" alt="" width="300px" />
 
-      <br />
-      <form action="/solicitud/{{this._id}}/catalogo" method="post">
-        <button>¡Solicitud completada!</button>
-      </form>
-      <hr />
-    </div>
+    <br />
+    <form action="/solicitud/{{this._id}}/catalogo" method="post">
+      <button>¡Solicitud completada!</button>
+    </form>
+    <br>
+
+    <form action="/usuario/perfil/mis-solicitudes-prestadas" method="post">
+      <button>Eliminar solicitud</button>
+      <input type="hidden" name="_id" value="{{this._id}}">
+    </form>
+
+    <form action="/usuario/perfil/mis-solicitudes-prestadas/conversacion" method="post">
+      <button>¡Envia un mensaje a {{this.usuarioPrestante.nombreCompleto}}!</button>
+      <input type="hidden" name="idSolicitud" value="{{this._id}}">
+      <input type="hidden" name="idUsuarioCreador" value="{{this.usuarioCreador._id}}">
+      <input type="hidden" name="idUsuarioPrestante" value="{{this.usuarioPrestante._id}}">
+    </form>
+
+    <form action="/usuario/perfil/mis-solicitudes-prestadas/mensajes" method="post">
+      <button>Ver conversación</button>
+      <input type="hidden" name="idSolicitud" value="{{this._id}}">
+    </form>
+    <hr />
+  </div>
   {{/each}}
 
 </div>

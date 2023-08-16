@@ -135,7 +135,6 @@ router.get(
       })
         .populate("usuarioPrestante") //{ $or: [ property: value }, { property: value } ] }
         .populate("usuarioCreador");
-
       console.log("muestrame todas las solicitudes prestadas", solEnProg);
       res.render("./usuario/sols-prestadas.hbs", { solEnProg });
     } catch (error) {
@@ -166,7 +165,7 @@ router.post("/perfil/mis-solicitudes-prestadas/completadas", isLoggedIn, async (
 
 //POST "usuario/perfil/mis-prestadas/mensajeria" => recibe la orden del form y nos redirige a la url de la conversación
 router.post("/perfil/mis-solicitudes-prestadas/conversacion", isLoggedIn, async (req, res, next) => {
-  const {idSolicitud, idUsuarioCreador, idUsuarioPrestante} = req.body
+  const { idSolicitud, idUsuarioCreador, idUsuarioPrestante } = req.body
   res.redirect(`/mensajeria/${idSolicitud}/${idUsuarioCreador}/${idUsuarioPrestante}`)
 })
 
@@ -218,6 +217,11 @@ router.get("/perfil/historial-solicitudes-creadas-completadas", isLoggedIn, asyn
   }
 })
 
+// POST "/usuario/perfil/mis-solicitudes-prestadas/mensajes" => esto recibe la informacion del boton "abrir conversa" y redirige a otra pagina
+router.post("/perfil/mis-solicitudes-prestadas/mensajes", isLoggedIn, (req, res, next) => {
+  const { idSolicitud } = req.body
+  res.redirect(`/mensajeria/conversacion/${idSolicitud}/`)
+})
 
 // exporta el fichero para poder connectar con él desde cualquier archivo
 module.exports = router;

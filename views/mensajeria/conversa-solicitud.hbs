@@ -1,0 +1,15 @@
+<div>
+
+    <h2>Conversa</h2>
+
+    {{#each this.conversaSolicitud }}
+    <div>
+        <a href="/usuario/{{this.escritor._id }}/detalles"><img src="{{this.escritor.imagen}}" width="50px"></a>
+        <strong><a href="/usuario/{{this.escritor._id }}/detalles">{{this.escritor.nombreCompleto }}:</a></strong>
+        {{this.mensaje}}</p>
+
+        <hr>
+    </div>
+    {{/each}}
+
+</div>

@@ -23,6 +23,11 @@ const mensajeriaSchema = new Schema({
       ref: "Solicitud",
     },
   ],
+
+  escritor: {
+    type: Schema.Types.ObjectId,
+    ref: "Usuario",
+  },
 });
 
 const Mensajeria = model("Mensajeria", mensajeriaSchema);

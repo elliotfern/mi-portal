@@ -3,27 +3,28 @@
   <h1>Mis solicitudes prestadas en curso</h1>
 
   {{#each this.solEnProg}}
-    <div>
-      <h3>Título: {{this.titulo}}</h3>
-      <p>Descripción: {{this.descripcion}}</p>
-      <p>Prestante: {{this.usuarioPrestante.nombreCompleto}}</p>
-      <p>Solicitante: {{this.usuarioCreador.nombreCompleto}}</p>
-      <img src="{{this.imagenSolicitud}}" alt="" width="300px"/>
-      <form action="/usuario/perfil/mis-solicitudes-prestadas" method="post">
-        <button>Eliminar solicitud</button>
-        <input type="hidden" name="_id" value="{{this._id}}">
-      </form>
-      <form action="/usuario/perfil/mis-solicitudes-prestadas/completadas" method="post">
-        <button>¡Solicitud completada!</button>
-        <input type="hidden" name="_id" value="{{this._id}}">
-      </form>
-         <form action="/usuario/perfil/mis-solicitudes-prestadas/conversacion" method="post">
-        <button>¡Envia un mensaje a {{this.usuarioCreador.nombreCompleto}}!</button>
-        <input type="hidden" name="idSolicitud" value="{{this._id}}">
-        <input type="hidden" name="idUsuarioCreador" value="{{this.usuarioCreador._id}}">
-        <input type="hidden" name="idUsuarioPrestante" value="{{this.usuarioPrestante._id}}">
-      </form>
-    </div>
+  <div>
+    <h3>Título: {{this.titulo}}</h3>
+    <p>Descripción: {{this.descripcion}}</p>
+    <p>Prestante: {{this.usuarioPrestante.nombreCompleto}}</p>
+    <p>Solicitante: {{this.usuarioCreador.nombreCompleto}}</p>
+    <img src="{{this.imagenSolicitud}}" alt="" width="300px" />
+
+    <form action="/usuario/perfil/mis-solicitudes-prestadas/conversacion" method="post">
+      <button>¡Envia un mensaje a {{this.usuarioCreador.nombreCompleto}}!</button>
+      <input type="hidden" name="idSolicitud" value="{{this._id}}">
+      <input type="hidden" name="idUsuarioCreador" value="{{this.usuarioCreador._id}}">
+      <input type="hidden" name="idUsuarioPrestante" value="{{this.usuarioPrestante._id}}">
+    </form>
+
+    <br>
+
+    <form action="/usuario/perfil/mis-solicitudes-prestadas/mensajes" method="post">
+      <button>Ver conversación</button>
+      <input type="hidden" name="idSolicitud" value="{{this._id}}">
+    </form>
+
+  </div>
   {{/each}}
 
 </div>
