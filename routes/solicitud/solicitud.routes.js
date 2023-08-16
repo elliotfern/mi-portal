@@ -139,14 +139,6 @@ router.get("/catalogo", isLoggedIn, isAdmin, async (req, res, next) => {
     const todasSolPend = await Solicitud.find({ estado: "pendiente" })
       .populate("usuarioCreador")
 
-    todasSolPend.forEach((cadaSolicitud) => {
-      let creadorId = cadaSolicitud.usuarioCreador._id;
-      if (req.session.user._id === creadorId) {
-        res.locals.isCreator = true
-        console.log("el usuario es true?", res.locals.isCreator)
-      }
-    });
-
     res.render("solicitud/catalogo.hbs", { respuesta: todasSolPend, isLoggin: req.session.user._id });
 
   } catch (error) {
