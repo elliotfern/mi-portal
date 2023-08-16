@@ -7,7 +7,7 @@ const mensajeriaSchema = new Schema({
     ref: "Usuario",
   },
 
-  usuarioBeneficiario: {
+  usuarioPrestante: {
     type: Schema.Types.ObjectId,
     ref: "Usuario",
   },
