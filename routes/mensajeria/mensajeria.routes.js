@@ -12,8 +12,9 @@ try {
     const solicitudId = req.params.idSolicitud;
     const creadorId = req.params.idUsuarioCreador;
     const prestanteId = req.params.idUsuarioPrestante;
-    console.log(solicitudId, creadorId, prestanteId)
+    console.log("ids", solicitudId, creadorId, prestanteId)
     res.render("mensajeria/mensajes.hbs", {solicitudId, creadorId, prestanteId})
+    console.log(solicitudId)
     
 } catch (error) {
     next(error)
@@ -22,7 +23,9 @@ try {
 
 //POST "/:idSolicitud/:idUsuarioCreador/:idUsuarioPrestante" => recibe el mensaje enviado por el formulario, lo renderiza en una nueva vista y lo envía a la BD
 router.post("/crear-mensaje", isLoggedIn, async (req, res, next) => {
-    const mensajeInfo = await Mensajeria.create([{mensaje: req.body.mensaje}, {usuarioCreador: req.body.creadorId}, {usuarioPrestante: req.body.prestanteId}, {nombreServicio: req.body.solicitudId}])
+    console.log("mensaje", req.body.mensaje)
+    console.log("solicitud ID", req.body.solicitudId)
+    const mensajeInfo = await Mensajeria.create({mensaje: req.body.mensaje, usuarioCreador: req.body.idUsuarioCreador, usuarioPrestante: req.body.idUsuarioPrestante, nombreServicio: req.body.idSolicitud})
     res.redirect("/")
 })
 
