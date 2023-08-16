@@ -1,0 +1,16 @@
+<div>
+
+<h4>Conversación</h4>
+
+<form action="/mensajeria/crear-mensaje" method="post">
+
+<input type="text" name="mensaje">
+<input type="hidden" name="idSolicitud" value="{{this.solicitudId}}">
+<input type="hidden" name="idUsuarioCreador" value="{{this.creadorId}}">
+<input type="hidden" name="idUsuarioPrestante" value="{{this.prestanteId}}">
+
+<button>Enviar mensaje</button>
+
+</form>
+
+</div>

@@ -22,4 +22,7 @@ router.use("/usuario", usuarioRouter);
 const solicitudRouter = require("./solicitud/solicitud.routes.js");
 router.use("/solicitud", solicitudRouter);
 
+const mensajeriaRouter = require("./mensajeria/mensajeria.routes.js");
+router.use("/mensajeria", mensajeriaRouter);
+
 module.exports = router;

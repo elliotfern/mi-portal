@@ -154,7 +154,7 @@ router.post("/perfil/mis-solicitudes-prestadas", isLoggedIn, async (req, res, ne
   }
 })
 
-//POST "usuario/perfil/mis-prestadas/completadas" => recibe la orden del form y lleva la solicitud al catálogo de solicitudes completadas
+//POST "usuario/perfil/mis-prestadas/completadas" => recibe la orden del form y lleva la solicitud al catálogo de solicitudes completadas PRIVADAS
 router.post("/perfil/mis-solicitudes-prestadas/completadas", isLoggedIn, async (req, res, next) => {
   try {
     await Solicitud.findByIdAndUpdate(req.body._id, { estado: "completado" })
@@ -162,6 +162,12 @@ router.post("/perfil/mis-solicitudes-prestadas/completadas", isLoggedIn, async (
   } catch (error) {
     next(error)
   }
+})
+
+//POST "usuario/perfil/mis-prestadas/mensajeria" => recibe la orden del form y nos redirige a la url de la conversación
+router.post("/perfil/mis-solicitudes-prestadas/conversacion", isLoggedIn, async (req, res, next) => {
+  const {idSolicitud, idUsuarioCreador, idUsuarioPrestante} = req.body
+  res.redirect(`/mensajeria/${idSolicitud}/${idUsuarioCreador}/${idUsuarioPrestante}`)
 })
 
 // GET "usuario/perfil/mis-solicitudes-creadas"
@@ -211,5 +217,7 @@ router.get("/perfil/historial-solicitudes-creadas-completadas", isLoggedIn, asyn
     next(error)
   }
 })
+
+
 // exporta el fichero para poder connectar con él desde cualquier archivo
 module.exports = router;

@@ -17,6 +17,12 @@
         <button>¡Solicitud completada!</button>
         <input type="hidden" name="_id" value="{{this._id}}">
       </form>
+         <form action="/usuario/perfil/mis-solicitudes-prestadas/conversacion" method="post">
+        <button>¡Envia un mensaje a {{this.usuarioCreador.nombreCompleto}}!</button>
+        <input type="hidden" name="idSolicitud" value="{{this._id}}">
+        <input type="hidden" name="idUsuarioCreador" value="{{this.usuarioCreador._id}}">
+        <input type="hidden" name="idUsuarioPrestante" value="{{this.usuarioPrestante._id}}">
+      </form>
     </div>
   {{/each}}
 
