@@ -2,7 +2,7 @@
 
   <h1>Catálogo de solicitudes pendientes</h1>
 
-  {{#each this.todasSolPend}}
+  {{#each this.respuesta}}
   <div>
     <h3>Título: {{this.titulo}}</h3>
     <p>Solicitante: <a href="/usuario/{{this.usuarioCreador._id}}/detalles">{{this.usuarioCreador.nombreCompleto}}</p>
@@ -12,13 +12,13 @@
     <p><a href="/solicitud/{{this._id}}/detalles">Ver más</a></p>
 
     <br />
-    {{#if this.isCreator}}
-    <p>eres el creador, no puedes encargarte de esta solicitud</p>
-    {{else}}
+
+    {{#usuarioCreador ../isLoggin this.usuarioCreador._id }}
     <form action="/solicitud/{{this._id}}/catalogo" method="post">
       <button>¡Yo me encargo!</button>
     </form>
-    {{/if}}
+    {{/usuarioCreador}}
+
 
     {{#if ../isUserAdmin }}
     <form action="/usuario/perfil/mis-solicitudes-prestadas" method="post">

@@ -134,7 +134,7 @@ router.post("/:solicitudId/editar", async (req, res, next) => {
 
 //GET "/solicitud/catalogo" => renderiza una vista con todas las solicitudes pendientes
 router.get("/catalogo", isLoggedIn, isAdmin, async (req, res, next) => {
-  console.log("usuario", req.session.user.rol)
+  console.log("usuario", req.session.user)
   try {
     const todasSolPend = await Solicitud.find({ estado: "pendiente" })
       .populate("usuarioCreador")
@@ -143,14 +143,11 @@ router.get("/catalogo", isLoggedIn, isAdmin, async (req, res, next) => {
       let creadorId = cadaSolicitud.usuarioCreador._id;
       if (req.session.user._id === creadorId) {
         res.locals.isCreator = true
-      } else {
-        res.locals.isCreator = false
+        console.log("el usuario es true?", res.locals.isCreator)
       }
-      console.log("el usuario es true?", creadorId, res.locals.isCreator)
     });
 
-
-    res.render("solicitud/catalogo.hbs", { todasSolPend, isCreator: res.locals.isCreator });
+    res.render("solicitud/catalogo.hbs", { respuesta: todasSolPend, isLoggin: req.session.user._id });
 
   } catch (error) {
     next(error);

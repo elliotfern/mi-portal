@@ -15,6 +15,15 @@ const hbs = require("hbs");
 
 const app = express();
 
+// aqui puedo registrar los helpers
+hbs.registerHelper('usuarioCreador', function (usuarioA, usuarioB, options) {
+    if (usuarioA.toString() !== usuarioB.toString()) {
+        return options.fn(this)
+    } else {
+        return options.inverse(this)
+    }
+})
+
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
 
