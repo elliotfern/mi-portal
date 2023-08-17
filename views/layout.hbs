@@ -10,29 +10,49 @@
     integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
   <link rel="stylesheet" href="/stylesheets/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
-
-  <div class="container menu">
-    <a href="/">Home | </a>
+<nav class="container-active-menu" >
+<div class="dropdown">
+    <button class="btn-secondary-dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+   Menú
+    </button>
+    <ul class="dropdown-menu">
+    <li><a href="/" class="dropdown-item">Home</a></li>
 
     {{#if isUserActive}}
-    <a href="/usuario/perfil">Mi perfil | </a>
+    <li><a href="/usuario/perfil" class="dropdown-item">Mi perfil</a></li>
 
-    <a href="/solicitud/crear">Crear solicitud | </a>
+    <li><a href="/solicitud/crear" class="dropdown-item">Crear solicitud</a></li>
 
     {{!-- tendremos que añadir /todas para que muestre por defecto todas las pendientes --}}
-    <a href="/solicitud/catalogo/todas">Solicitudes pendientes | </a>
-    <a href="/solicitud/catalogo/completadas">Solicitudes completadas | </a>
-    <a href="/usuario/catalogo">Usuarios | </a>
-    <a href="/auth/logout">Logout | </a>
-
-    {{else}}
-    <a href="/auth/registro">Registro | </a>
-    <a href="/auth/login">Login | </a>
-    {{/if}}
+    <li><a href="/solicitud/catalogo/todas" class="dropdown-item">Solicitudes pendientes</a></li> 
+    <li><a href="/solicitud/catalogo/completadas" class="dropdown-item">Solicitudes completadas</a></li> 
+    <li><a href="/usuario/catalogo" class="dropdown-item">Usuarios</a></li>
+  
   </div>
+  </ul>
+    <div id="logout-container">
+    <p id="link-logout-p"><a href="/auth/logout" id="link-cerrar-sesion">Cerrar sesión</a></p>
+    </div>
+</nav>
+  
+
+  <div class="container-active-menu">
+    {{else}}
+    <a href="/auth/registro">Registro</a> |
+    <a href="/auth/login">Login</a> |
+    {{/if}}
+
+  </div>
+
+   
+  
 
   <div class="container">
     {{{body}}}
