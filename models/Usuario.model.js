@@ -28,6 +28,7 @@ const usuarioSchema = new Schema({
 
   imagen: {
     type: String,
+    default: "https://res.cloudinary.com/drwwdhhgc/image/upload/v1692260372/fotos-de-perfiles/cxkadx1edt2njd7mdohb.png",
   },
 
   favoritos: [

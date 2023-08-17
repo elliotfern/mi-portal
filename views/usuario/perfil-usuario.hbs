@@ -7,11 +7,7 @@
 
   <h3>Cambiar la imagen de perfil</h3>
 
-  <form
-    action="/usuario/subir-imagen-perfil"
-    method="post"
-    enctype="multipart/form-data"
-  >
+  <form action="/usuario/subir-imagen-perfil" method="post" enctype="multipart/form-data">
 
     <label for="imagen">Imagen de perfil</label>
     <input type="file" name="imagen" />
@@ -31,13 +27,10 @@
     <li><a href="/usuario/perfil/mis-solicitudes-prestadas">Mis solicitudes
         prestadas en curso</a></li>
     <br />
-    <li><a
-        href="/usuario/perfil/historial-solicitudes-creadas-completadas"
-      >Historial de solicitudes creadas</a></li>
+    <li><a href="/usuario/perfil/historial-solicitudes-creadas-completadas">Historial de solicitudes creadas</a></li>
     <br />
-    <li><a
-        href="/usuario/perfil/historial-solicitudes-prestante-completadas"
-      >Historial de solicitudes prestantes</a></li>
+    <li><a href="/usuario/perfil/historial-solicitudes-prestante-completadas">Historial de solicitudes prestantes</a>
+    </li>
 
     <br />
     <li><a href="/usuario/perfil/{{this.usuarioDetalles._id}}/edit">Editar

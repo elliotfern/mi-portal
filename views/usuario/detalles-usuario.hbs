@@ -3,8 +3,13 @@
   <p>Correo electrónico: {{this.usuarioObj.correo}}</p>
   <img src="{{this.usuarioObj.imagen}}" width="300px" />
   <br>
+
+
+  {{#usuarioCreador this.isLoggin this.usuarioObj._id }}
   <form action="/usuario/{{this.usuarioObj._id}}/detalles" method="post">
-  <input type="hidden" name="_id" value="{{this.usuarioObj._id}}">
-  <button>Añadir a favoritos</button>
+    <input type="hidden" name="_id" value="{{this.usuarioObj._id}}">
+    <button>Añadir a favoritos</button>
   </form>
+  {{/usuarioCreador}}
+
 </div>

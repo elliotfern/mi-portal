@@ -28,6 +28,7 @@ const solicitudSchema = new Schema(
 
     imagenSolicitud: {
       type: String,
+      default: "https://res.cloudinary.com/drwwdhhgc/image/upload/v1692260685/fotos-de-perfiles/vwa26nkheoyrqmrtaf1f.jpg"
     },
 
     fechaServicio: {

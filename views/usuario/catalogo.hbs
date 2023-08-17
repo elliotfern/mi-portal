@@ -1,10 +1,19 @@
 <h1>Usuarios registrados en el web</h1>
 
 {{#each this.todosUsuarios}}
-  <div>
-    <h3>{{this.nombreCompleto}}</h3>
-    <img src="{{this.imagen}}" alt="" width="200px" />
-    <p><a href="/usuario/{{this._id}}/detalles">Ver perfil completo</a></p>
-    <hr />
-  </div>
+<div>
+  <h3>{{this.nombreCompleto}}</h3>
+  <img src="{{this.imagen}}" alt="" width="200px" />
+  <p><a href="/usuario/{{this._id}}/detalles">Ver perfil completo</a></p>
+
+  {{#usuarioCreador ../isLoggin this._id }}
+  <form action="/usuario/{{this._id}}/detalles" method="post">
+    <input type="hidden" name="_id" value="{{this._id}}">
+    <button>Añadir a favoritos</button>
+  </form>
+  {{/usuarioCreador}}
+
+
+  <hr />
+</div>
 {{/each}}

@@ -73,7 +73,8 @@ router.post("/perfil/:usuarioId/edit", isLoggedIn, async (req, res, next) => {
 router.get("/catalogo", isLoggedIn, async (req, res, next) => {
   try {
     const todosUsuarios = await Usuario.find();
-    res.render("./usuario/catalogo.hbs", { todosUsuarios });
+    res.render("./usuario/catalogo.hbs", { todosUsuarios, isLoggin: req.session.user._id });
+    console.log("objeto todos usuarios", todosUsuarios)
   } catch (error) {
     next(error);
   }
@@ -83,7 +84,7 @@ router.get("/catalogo", isLoggedIn, async (req, res, next) => {
 router.get("/:usuarioId/detalles", isLoggedIn, async (req, res, next) => {
   try {
     const usuarioObj = await Usuario.findById(req.params.usuarioId);
-    res.render("usuario/detalles-usuario.hbs", { usuarioObj });
+    res.render("usuario/detalles-usuario.hbs", { usuarioObj, isLoggin: req.session.user._id });
     console.log(usuarioObj);
   } catch (error) {
     next(error);
