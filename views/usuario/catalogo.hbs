@@ -1,18 +1,28 @@
-<h1>Usuarios registrados en el web</h1>
+<div class="container">
 
-{{#each this.todosUsuarios}}
-<div>
-  <h3>{{this.nombreCompleto}}</h3>
-  <img src="{{this.imagen}}" alt="" width="200px" />
-  <p><a href="/usuario/{{this._id}}/detalles">Ver perfil completo</a></p>
+  <h1>Usuarios registrados en el web</h1>
 
-  {{#usuarioCreador ../isLoggin this._id }}
-  <form action="/usuario/{{this._id}}/detalles" method="post">
-    <input type="hidden" name="_id" value="{{this._id}}">
-    <button>Añadir a favoritos</button>
-  </form>
-  {{/usuarioCreador}}
+  <div class="row g-3">
+    {{#each this.todosUsuarios}}
+    <div class="col">
+      <div class="card" style="width: 18rem;">
+        <img src="{{this.imagen}}" class="card-img-top" alt="" />
+        <div class="card-body">
+          <h5 class="card-title">{{this.nombreCompleto}}</h5>
+          <a href="/usuario/{{this._id}}/detalles">Ver perfil completo</a>
 
-  <hr />
+          {{#usuarioCreador ../isLoggin this._id }}
+          <form action="/usuario/{{this._id}}/detalles" method="post">
+            <input type="hidden" name="_id" value="{{this._id}}">
+            <button class="btn btn-outline-primary"> <i class="fa fa-heart"></i> Añadir a favoritos</button>
+          </form>
+          {{/usuarioCreador}}
+
+        </div>
+      </div>
+    </div>
+    {{/each}}
+
+  </div>
+
 </div>
-{{/each}}

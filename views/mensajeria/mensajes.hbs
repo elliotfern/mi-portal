@@ -1,18 +1,17 @@
-<div>
+<div class="container">
 
-<h4>Conversación</h4>
+    <h4>Conversación</h4>
 
-{{this.solicitudId}}
+    <form action="/mensajeria/crear-mensaje" method="post">
+        {{!-- <label for="mensaje">Comenta algo</label> --}}
+        <div class="mb-3"><textarea class="form-control" name="mensaje" rows="15"></textarea></div>
 
-<form  action="/mensajeria/crear-mensaje" method="post">
-{{!-- <label for="mensaje">Comenta algo</label> --}}
-<input type="text" name="mensaje">
-<input type="hidden" name="idSolicitud" value="{{this.solicitudId}}">
-<input type="hidden" name="idUsuarioCreador" value="{{this.creadorId}}">
-<input type="hidden" name="idUsuarioPrestante" value="{{this.prestanteId}}">
+        <input type="hidden" name="idSolicitud" value="{{this.solicitudId}}">
+        <input type="hidden" name="idUsuarioCreador" value="{{this.creadorId}}">
+        <input type="hidden" name="idUsuarioPrestante" value="{{this.prestanteId}}">
 
-<button>Enviar mensaje</button>
+        <button class="btn btn-outline-primary">Enviar mensaje</button>
 
-</form>
+    </form>
 
 </div>

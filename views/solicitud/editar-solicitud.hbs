@@ -1,41 +1,51 @@
-<div>
-<h2>Editar solicitud</h2>
+<div class="container">
+  <h2>Editar solicitud</h2>
 
   <form action="/solicitud/{{this.detallesSolicitud._id}}/editar/" method="post">
 
-   
+
     <input type="hidden" name="usuarioCreador" value="{{this.detallesSolicitud.usuarioCreador}}" />
 
-    <label for="titulo">Nombre de la solicitud</label>
-    <input type="text" name="titulo" value="{{this.detallesSolicitud.titulo}}" />
+    <div class="mb-3">
+      <label for="titulo">Nombre de la solicitud</label>
+      <input type="text" class="form-control" name="titulo" value="{{this.detallesSolicitud.titulo}}" />
+    </div>
 
-<br>
+    <div class="mb-3"><label for="descripcion">Descripción</label>
+      <textarea class="form-control" name="descripcion" rows="5" />
+      {{this.detallesSolicitud.descripcion}}
+      </textarea>
+    </div>
 
-    <label for="descripcion">Descripción</label>
-    <textarea name="descripcion" rows="5" />
-    {{this.detallesSolicitud.descripcion}}
-    </textarea>
+    <div class="mb-3"><label for="categoria">Categoría</label>
+      <select name="categoria" class="form-select">
+        {{#each this.categoriaSeleccionada }}
+        {{#if this.isSelected}}
+        <option value="{{this.name}}" selected="true">{{this.name}}</option>
+        {{else }}
+        <option value="{{this.name}}">{{this.name}}</option>
+        {{/if}}
+        {{/each}}
+      </select>
+    </div>
 
-<br>
-
-<label for="categoria">Categoría</label>
- <select name="categoria">
- {{#each this.categoriaSeleccionada }}
- {{#if this.isSelected}}
- <option value="{{this.name}}" selected="true">{{this.name}}</option>
- {{else }}
-<option value="{{this.name}}">{{this.name}}</option>
- {{/if}}
- {{/each}}
-</select>
-<br>
-
-    <label for="fechaServicio">Fecha deseada</label>
-     <input type="date" name="fechaServicio" value="{{this.fechaFormat}}" />
-<br>
+    <div class="mb-3">
+      <label for="fechaServicio">Fecha deseada</label>
+      <input type="date" class="form-control" name="fechaServicio" value="{{this.fechaFormat}}" />
+    </div>
 
 
-<button>Editar solicitud</button>
+    <div class="row g-2">
+      <div class="col-md">
+        <button class="btn btn-outline-primary">Editar solicitud</button>
+      </div>
+
+      <div class="col-md derecha">
+        <a href="/solicitud/{{this.detallesSolicitud._id}}/detalles" class="btn btn-outline-secondary" tabindex="-1"
+          role="button" aria-disabled="true">Cancelar</a>
+      </div>
+    </div>
+
   </form>
 
-  </div>
+</div>

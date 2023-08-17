@@ -100,7 +100,7 @@ router.post("/:usuarioId/detalles", isLoggedIn, async (req, res, next) => {
       { $push: { favoritos: usuarioFav } }
     );
     // console.log(usuarioActualizado)
-    res.redirect(`/usuario/${req.session.user._id}/detalles`);
+    res.redirect(`/usuario/${req.session.user._id}/interacciones`);
   } catch (error) {
     next(error);
   }

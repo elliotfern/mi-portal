@@ -40,13 +40,14 @@ router.post("/crear", isLoggedIn, async (req, res, next) => {
 // GET para renderizar detalles de una solicitud creada por ID
 router.get("/:solicitudId/detalles", isLoggedIn, async (req, res, next) => {
   try {
+    const usuarioLogeado = req.session.user._id
     const solicitudOb = await Solicitud.findById(
       req.params.solicitudId
-    ).populate("usuarioCreador");
+    ).populate("usuarioCreador")
     console.log("objeto", solicitudOb);
     const dateFormat = moment(solicitudOb.fechaServicio).format("DD-MM-YYYY");
 
-    res.render("solicitud/detalles-solicitud.hbs", { solicitudOb, dateFormat });
+    res.render("solicitud/detalles-solicitud.hbs", { solicitudOb, dateFormat, usuarioLogeado });
   } catch (error) {
     next(error);
   }
@@ -132,8 +133,24 @@ router.post("/:solicitudId/editar", async (req, res, next) => {
   }
 });
 
+//GET "/solicitud/catalogo/completadas" => vista para mostrar el historial de solicitudes completadas
+router.get("/catalogo/completadas", isLoggedIn, isAdmin, async (req, res, next) => {
+  try {
+    const solicitudesCompletadas = await Solicitud.find({
+      estado: "completado",
+    })
+      .populate("usuarioCreador")
+      .populate("usuarioPrestante")
+    res.render("solicitud/catalogo-completadas.hbs", {
+      solicitudesCompletadas,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 //GET "/solicitud/catalogo/:categoria" => renderiza una vista con todas las solicitudes pendientes
-router.get("/catalogo/:categoria", isLoggedIn, isAdmin, async (req, res, next) => {
+router.get("/catalogo/pendientes/:categoria", isLoggedIn, isAdmin, async (req, res, next) => {
   console.log("usuario", req.session.user)
   const categoriaEscogida = req.params.categoria;
   try {
@@ -156,7 +173,7 @@ router.get("/catalogo/:categoria", isLoggedIn, isAdmin, async (req, res, next) =
 //POST "/solicitud/catalogo/:categoria" => esta ruta post procesa el boton de filtrado de la categoria segun lo que quiere el usuario
 router.post("/catalogo/filtro", isLoggedIn, (req, res, next) => {
   const categoria = req.body.categoria;
-  res.redirect(`/solicitud/catalogo/${categoria}`);
+  res.redirect(`/solicitud/catalogo/pendientes/${categoria}`);
 })
 
 // POST "/solicitud/:solicitudId/catalogo" => boton que al clicar cambia el estado de una solicitud de pendiente a en progreso
@@ -169,27 +186,27 @@ router.post("/:solicitudId/catalogo/", isLoggedIn, async (req, res, next) => {
       estado: "en progreso",
       usuarioPrestante: usuarioLogeado,
     });
-    res.redirect("/solicitud/catalogo");
+    res.redirect("/solicitud/catalogo/pendientes/todas");
   } catch (error) {
     next(error);
   }
 });
 
-//GET "/solicitud/catalogo/completadas" => vista para mostrar el historial de solicitudes completadas
-router.get("/catalogo/completadas", isLoggedIn, isAdmin, async (req, res, next) => {
+// POST "/solicitud/:solicitudId/catalogo" => boton que al clicar cambia el estado de una solicitud en progresa a completada
+router.post("/:solicitudId/catalogo/completada", isLoggedIn, async (req, res, next) => {
+  const solicitudId = req.params.solicitudId;
+
   try {
-    const solicitudesCompletadas = await Solicitud.find({
+    await Solicitud.findByIdAndUpdate(solicitudId, {
       estado: "completado",
-    })
-      .populate("usuarioCreador")
-      .populate("usuarioPrestante")
-    res.render("solicitud/catalogo-completadas.hbs", {
-      solicitudesCompletadas,
     });
+    res.redirect("/solicitud/catalogo/pendientes/todas");
   } catch (error) {
     next(error);
   }
 });
+
+
 // exporta el fichero para poder connectar con él desde cualquier archivo
 module.exports = router;
 

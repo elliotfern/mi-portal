@@ -24,6 +24,15 @@ hbs.registerHelper('usuarioCreador', function (usuarioA, usuarioB, options) {
     }
 })
 
+// aqui puedo registrar los helpers
+hbs.registerHelper('usuarioLogeado', function (usuarioA, usuarioB, options) {
+    if (usuarioA.toString() === usuarioB.toString()) {
+        return options.fn(this)
+    } else {
+        return options.inverse(this)
+    }
+})
+
 
 
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware

@@ -1,25 +1,31 @@
-<div>
-
+<div class="container">
   <h1>Catálogo de solicitudes completadas</h1>
 
-  {{#each this.solicitudesCompletadas}}
-    <div>
-      <h3>Título: {{this.titulo}}</h3>
-      <p>Solicitante: <a href="/usuario/{{this.usuarioCreador._id}}/detalles">{{this.usuarioCreador.nombreCompleto}}</p></a> 
-      <p>Prestante: <a href="/usuario/{{this.usuarioPrestante._id}}/detalles">{{this.usuarioPrestante.nombreCompleto}}</p></a> 
-      <p>Descripción: {{this.descripcion}}</p>
-      <img src="{{this.imagenSolicitud}}" alt="" width="200px" />
-      <p><a href="/solicitud/{{this._id}}/detalles">Ver más</a></p>
+  <div class="row g-3">
+    {{#each this.solicitudesCompletadas}}
+    <div class="col">
+      <div class="card" style="width: 18rem;">
+        <img src="{{this.imagenSolicitud}}" class="card-img-top" alt="" />
+        <div class="card-body">
+          <h5 class="card-title">{{this.titulo}}</h5>
+          <p class="card-text">Solicitante: <a
+              href="/usuario/{{this.usuarioCreador._id}}/detalles">{{this.usuarioCreador.nombreCompleto}}</a></p>
+          <p class="card-text">Prestante: <a
+              href="/usuario/{{this.usuarioPrestante._id}}/detalles">{{this.usuarioPrestante.nombreCompleto}}</p></a>
+          <p class="card-text">Descripción: {{this.descripcion}}</p>
+          <a href="/solicitud/{{this._id}}/detalles">Ver más</a>
 
-         {{#if ../isUserAdmin }}
-<form action="/usuario/perfil/mis-solicitudes-prestadas" method="post">
-        <button>Eliminar solicitud</button>
-        <input type="hidden" name="_id" value="{{this._id}}">
-      </form>
-      {{/if}}
-      
-<hr>
+          {{#if ../isUserAdmin }}
+          <form action="/usuario/perfil/mis-solicitudes-prestadas" method="post">
+            <button>Eliminar solicitud</button>
+            <input type="hidden" name="_id" value="{{this._id}}">
+          </form>
+          {{/if}}
+
+        </div>
+      </div>
+      {{/each}}
+
     </div>
-  {{/each}}
 
-</div>
+  </div>

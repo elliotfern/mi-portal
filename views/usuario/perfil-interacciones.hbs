@@ -1,15 +1,18 @@
-<div>
-  <h1>Interacciones de usuarios</h1>
+<div class="container">
 
-  <h2>Usuarios favoritos</h2>
+  <h1>Mis usuarios favoritos</h1>
 
-  {{#each this.dataUsuarios.favoritos}}
-    <div>
-      <h3>{{this.nombreCompleto}}</h3>
-      <img src="{{this.imagen}}" alt="" width="200px" />
-      <p><a href="/usuario/{{this._id}}/detalles">Ver perfil</a></p>
-      <hr />
+  <div class="row g-3">
+    {{#each this.dataUsuarios.favoritos}}
+    <div class="col">
+      <div>
+        <h4>{{this.nombreCompleto}}</h4>
+        <a href="/usuario/{{this._id}}/detalles"><img src="{{this.imagen}}" alt="" width="200px" /></a>
+        <p><a href="/usuario/{{this._id}}/detalles">Ver perfil</a></p>
+        <hr />
+      </div>
     </div>
-  {{/each}}
+    {{/each}}
+  </div>
 
 </div>

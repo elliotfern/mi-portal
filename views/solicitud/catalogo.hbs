@@ -1,4 +1,4 @@
-<div>
+<div class="container">
 
   <h1>Catálogo de solicitudes pendientes</h1>
 
@@ -16,32 +16,36 @@
     <button type="submit">Filtrar</button>
   </form>
 
-  {{#each this.respuesta}}
-  <div>
-    <h3>{{this.titulo}}</h3>
-    <p>Solicitante: <a href="/usuario/{{this.usuarioCreador._id}}/detalles">{{this.usuarioCreador.nombreCompleto}}</p>
-    </a>
-    <p>Descripción: {{this.descripcion}}</p>
-    <img src="{{this.imagenSolicitud}}" alt="" width="200px" />
-    <p><a href="/solicitud/{{this._id}}/detalles">Ver más</a></p>
+  <div class="row g-3">
+    {{#each this.respuesta}}
+    <div class="col">
+      <div class="card" style="width: 18rem;">
+        <img src="{{this.imagenSolicitud}}" class="card-img-top" alt="" />
+        <div class="card-body">
+          <h5 class="card-title">{{this.titulo}}</h5>
+          <p class="card-text">Solicitante: <a
+              href="/usuario/{{this.usuarioCreador._id}}/detalles">{{this.usuarioCreador.nombreCompleto}}</a></p>
+          <p class="card-text">Descripción: {{this.descripcion}}</p>
+          <a href="/solicitud/{{this._id}}/detalles">Ver más</a>
 
-    <br />
+          {{#usuarioCreador ../isLoggin this.usuarioCreador._id }}
+          <form action="/solicitud/{{this._id}}/catalogo" method="post">
+            <button class="btn btn-outline-secondary">¡Yo me encargo!</button>
+          </form>
+          {{/usuarioCreador}}
+        </div>
 
-    {{#usuarioCreador ../isLoggin this.usuarioCreador._id }}
-    <form action="/solicitud/{{this._id}}/catalogo" method="post">
-      <button>¡Yo me encargo!</button>
-    </form>
-    {{/usuarioCreador}}
+        {{#if ../isUserAdmin }}
+        <form action="/usuario/perfil/mis-solicitudes-prestadas" method="post">
+          <button>Eliminar solicitud</button>
+          <input type="hidden" name="_id" value="{{this._id}}">
+        </form>
+        {{/if}}
 
+      </div>
+    </div>
+    {{/each}}
 
-    {{#if ../isUserAdmin }}
-    <form action="/usuario/perfil/mis-solicitudes-prestadas" method="post">
-      <button>Eliminar solicitud</button>
-      <input type="hidden" name="_id" value="{{this._id}}">
-    </form>
-    {{/if}}
-    <hr>
   </div>
-  {{/each}}
 
 </div>

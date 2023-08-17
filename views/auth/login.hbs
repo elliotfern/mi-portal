@@ -1,26 +1,27 @@
-<div>
+<div class="container">
 
-<h1>¡Logueate!</h1>
+    <h1>¡Logueate!</h1>
 
-<form action="/auth/login" method="post">
+    <form action="/auth/login" method="post">
 
-<label for="correo">Correo electrónico</label>
-<input type="text" name="correo">
+        <div class="mb-3"><label for="correo">Correo electrónico</label>
+            <input type="text" name="correo" class="form-control">
+        </div>
 
-<br>
 
-<label for="password">Contraseña</label>
-<input type="password" name="password">
+        <div class="mb-3"><label for="password">Contraseña</label>
+            <input type="password" name="password" class="form-control">
+        </div>
 
-<br>
 
-<button>Accede</button>
 
-{{!-- {{#if errorMessage}} 
-<br>
-{{errorMessage}}
-{{/if}} --}}
+        <button class="btn btn-outline-primary">Accede</button>
 
-</form>
-    
+        {{!-- {{#if errorMessage}}
+        <br>
+        {{errorMessage}}
+        {{/if}} --}}
+
+    </form>
+
 </div>

@@ -1,13 +1,15 @@
-
-
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   min-height: 100%;
 }
 
 .menu {
   margin-top: 25px;
   margin-bottom: 25px;
+}
+
+.container {
+  margin-top: 25px;
 }
 
 /* Menú de navegación */
@@ -23,7 +25,6 @@ body {
   border-style: none;
   margin-top: 1.5em;
   margin-left: 1.5em;
- 
 }
 
 #logout-container {
@@ -42,17 +43,15 @@ body {
 
 /* HOME */
 
-#home-title{
-
-color: white;
+#home-title {
+  color: white;
 }
 
-#home-text-container{
+#home-text-container {
   display: flex;
   align-items: center;
   margin-top: 4em;
   margin-bottom: 20em;
-
 }
 #main-home-container {
   background-image: url(https://images.pexels.com/photos/4010286/pexels-photo-4010286.jpeg);
@@ -64,8 +63,6 @@ color: white;
   justify-content: center;
 }
 
-.container {
- padding: 0;
- margin: 0;
+.derecha {
+  text-align: right;
 }
-

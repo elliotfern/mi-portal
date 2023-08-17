@@ -1,4 +1,4 @@
-<div>
+<div class="container">
   <h3>{{this.usuarioObj.nombreCompleto}}</h3>
   <p>Correo electrónico: {{this.usuarioObj.correo}}</p>
   <img src="{{this.usuarioObj.imagen}}" width="300px" />
@@ -8,7 +8,8 @@
   {{#usuarioCreador this.isLoggin this.usuarioObj._id }}
   <form action="/usuario/{{this.usuarioObj._id}}/detalles" method="post">
     <input type="hidden" name="_id" value="{{this.usuarioObj._id}}">
-    <button>Añadir a favoritos</button>
+    <br>
+    <button class="btn btn-outline-primary"> <i class="fa fa-heart"></i> Añadir a favoritos</button>
   </form>
   {{/usuarioCreador}}
 

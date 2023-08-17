@@ -13,48 +13,43 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 
 <body>
-<nav class="container-active-menu" >
-<div class="dropdown">
-    <button class="btn-secondary-dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-   Menú
-    </button>
-    <ul class="dropdown-menu">
-    <li><a href="/" class="dropdown-item">Home</a></li>
+  <nav class="container-active-menu">
+    <div class="dropdown">
+      <button class="btn-secondary-dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Menú
+      </button>
+      <ul class="dropdown-menu">
+        {{#if isUserActive}}
+        <li><a href="/" class="dropdown-item">Homepage</a></li>
+        <li><a href="/usuario/perfil" class="dropdown-item">Mi perfil</a></li>
+        <li><a href="/solicitud/crear" class="dropdown-item">Crear solicitud</a></li>
+        <li><a href="/solicitud/catalogo/pendientes/todas" class="dropdown-item">Solicitudes pendientes</a></li>
+        <li><a href="/solicitud/catalogo/completadas" class="dropdown-item">Solicitudes completadas</a></li>
+        <li><a href="/usuario/catalogo" class="dropdown-item">Usuarios</a></li>
+        {{else}}
+        <li><a class="dropdown-item" href="/auth/registro">Registro</a></li>
+        <li><a class="dropdown-item" href="/auth/login">Login</a></li>
+        {{/if}}
+      </ul>
 
-    {{#if isUserActive}}
-    <li><a href="/usuario/perfil" class="dropdown-item">Mi perfil</a></li>
-
-    <li><a href="/solicitud/crear" class="dropdown-item">Crear solicitud</a></li>
-
-    {{!-- tendremos que añadir /todas para que muestre por defecto todas las pendientes --}}
-    <li><a href="/solicitud/catalogo/todas" class="dropdown-item">Solicitudes pendientes</a></li> 
-    <li><a href="/solicitud/catalogo/completadas" class="dropdown-item">Solicitudes completadas</a></li> 
-    <li><a href="/usuario/catalogo" class="dropdown-item">Usuarios</a></li>
-  
-  </div>
-  </ul>
-    <div id="logout-container">
-    <p id="link-logout-p"><a href="/auth/logout" id="link-cerrar-sesion">Cerrar sesión</a></p>
+      {{#if isUserActive}}
+      <div id="logout-container">
+        <p id="link-logout-p"><a href="/auth/logout" id="link-cerrar-sesion">Cerrar sesión</a></p>
+      </div>
+      {{/if}}
     </div>
-</nav>
-  
+  </nav>
 
-  <div class="container-active-menu">
-    {{else}}
-    <a href="/auth/registro">Registro</a> |
-    <a href="/auth/login">Login</a> |
-    {{/if}}
 
   </div>
 
-   
-  
 
-  <div class="container">
+  <div class="container-fluid">
     {{{body}}}
   </div>
 

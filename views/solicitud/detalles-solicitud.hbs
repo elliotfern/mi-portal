@@ -1,26 +1,33 @@
-<h1> Tu solicitud </h1>
+<div class="container">
 
-<h3>{{this.solicitudOb.titulo}}</h3>
-<p>Solicitante: {{this.solicitudOb.usuarioCreador.nombreCompleto}}</p>
-<p>Descripción: {{this.solicitudOb.descripcion}}</p>
-<p>Categoría: {{this.solicitudOb.categoria}}</p>
-<p>Fecha de servicio: {{this.dateFormat}}</p>
-<img src="{{this.solicitudOb.imagenSolicitud}}" alt="" width="300px" />
-<h3>Cambiar la imagen de perfil</h3>
+  <h1> {{this.solicitudOb.titulo}}</h1>
 
-<form
-  action="/solicitud/subir-imagen-solicitud"
-  method="post"
-  enctype="multipart/form-data"
->
 
-  <input type="hidden" name="_id" value="{{this.solicitudOb._id}}" />
+  <p><strong>Solicitante: </strong> {{this.solicitudOb.usuarioCreador.nombreCompleto}}</p>
+  <p><strong>Descripción: </strong> {{this.solicitudOb.descripcion}}</p>
+  <p><strong>Categoría: </strong> <a
+      href="/solicitud/catalogo/pendientes/{{this.solicitudOb.categoria}}">{{this.solicitudOb.categoria}}</a></p>
 
-  <label for="imagenSolicitud">Imagen de la solicitud</label>
-  <input type="file" name="imagenSolicitud" />
+  <p><strong>Fecha de servicio:</strong> {{this.dateFormat}}</p>
+  <img src="{{this.solicitudOb.imagenSolicitud}}" alt="" width="300px" />
 
-  <button>Agregar</button>
+  <div class="container">
+    <h5>Cambiar la imagen de la solicitud</h5>
+    <form action="/solicitud/subir-imagen-solicitud" method="post" enctype="multipart/form-data">
 
-</form>
+      <input type="hidden" name="_id" value="{{this.solicitudOb._id}}" />
 
-<a href="/solicitud/{{this.solicitudOb._id}}/editar">Editar solicitud</a>
+      <input type="file" name="imagenSolicitud" />
+
+      <button>Agregar</button>
+
+    </form>
+  </div>
+
+
+  {{#usuarioLogeado usuarioLogeado this.solicitudOb.usuarioCreador._id }}
+
+  <a href="/solicitud/{{this.solicitudOb._id}}/editar" class="btn btn-outline-primary" tabindex="-1" role="button"
+    aria-disabled="true">Editar solicitud</a>
+  {{/usuarioLogeado}}
+</div>

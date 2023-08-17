@@ -30,7 +30,7 @@ router.post("/crear-mensaje", isLoggedIn, async (req, res, next) => {
     const usuariSesionId = req.session.user._id
 
     const mensajeInfo = await Mensajeria.create({ mensaje: req.body.mensaje, usuarioCreador: req.body.idUsuarioCreador, usuarioPrestante: req.body.idUsuarioPrestante, nombreServicio: req.body.idSolicitud, escritor: usuariSesionId })
-    res.redirect("/")
+    res.redirect(`/mensajeria/conversacion/${req.body.idSolicitud}`)
 })
 
 
@@ -49,5 +49,8 @@ router.get("/conversacion/:idSolicitud/", isLoggedIn, async (req, res, next) => 
         next(error)
     }
 })
+
+
+
 
 module.exports = router;

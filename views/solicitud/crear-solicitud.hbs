@@ -1,39 +1,47 @@
-<div>
+<div class="container">
   <h1>Crear solicitud</h1>
 
   <form action="/solicitud/crear/" method="post">
 
-
     <input type="hidden" name="usuarioCreador" value="{{this.usuarioCreador}}" />
 
-    <label for="titulo">Nombre de la solicitud</label>
-    <input type="text" name="titulo" value="" />
+    <div class="mb-3">
+      <label for="titulo">Nombre de la solicitud</label>
+      <input type="text" class="form-control" name="titulo" value="" />
+    </div>
 
-    <br>
+    <div class="mb-3">
+      <label for="descripcion">Descripción</label>
+      <textarea class="form-control" name="descripcion" rows="5" /></textarea>
+    </div>
 
-    <label for="descripcion">Descripción</label>
-    <textarea name="descripcion" rows="5" /></textarea>
+    <div class="mb-3">
+      <label for="categoria">Categoría</label>
+      <select name="categoria" class="form-select">
+        <option value="">Escoje una categoría</option>
+        <option value=" bricolaje">Bricolaje</option>
+        <option value="cuidados">Cuidados</option>
+        <option value="mascotas">Mascotas</option>
+        <option value="transporte">Transporte</option>
+        <option value="alimentacion">Alimentacion</option>
+        <option value="otros">Otros</option>
+      </select>
+    </div>
 
-    <br>
+    <div class="mb-3">
+      <label for="fechaServicio">Fecha deseada</label>
+      <input type="date" class="form-control" name="fechaServicio" value="" />
+    </div>
 
-    <label for="categoria">Categoría</label>
-    <select name="categoria">
-      <option value="">Escoje una categoría</option>
-      <option value="bricolaje">Bricolaje</option>
-      <option value="cuidados">Cuidados</option>
-      <option value="mascotas">Mascotas</option>
-      <option value="transporte">Transporte</option>
-      <option value="alimentacion">Alimentacion</option>
-      <option value="otros">Otros</option>
-    </select>
+    <div class="row g-2">
+      <div class="col-md">
+        <button class="btn btn-outline-primary">Crear solicitud</button>
+      </div>
 
-    <br>
+      <div class="col-md derecha">
+        <a href="/" class="btn btn-outline-secondary" tabindex="-1" role="button" aria-disabled="true">Cancelar</a>
+      </div>
+    </div>
 
-    <label for="fechaServicio">Fecha deseada</label>
-    <input type="date" name="fechaServicio" value="" />
-    <br>
-
-
-    <button>Crear solicitud</button>
   </form>
 </div>
