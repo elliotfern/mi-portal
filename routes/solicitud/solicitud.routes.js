@@ -146,6 +146,7 @@ router.get("/catalogo", isLoggedIn, isAdmin, async (req, res, next) => {
   }
 });
 
+
 // POST "/solicitud/:solicitudId/catalogo" => boton que al clicar cambia el estado de una solicitud de pendiente a en progreso
 router.post("/:solicitudId/catalogo", isLoggedIn, async (req, res, next) => {
   const solicitudId = req.params.solicitudId;
