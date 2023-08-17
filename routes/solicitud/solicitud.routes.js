@@ -132,25 +132,38 @@ router.post("/:solicitudId/editar", async (req, res, next) => {
   }
 });
 
-//GET "/solicitud/catalogo" => renderiza una vista con todas las solicitudes pendientes
-router.get("/catalogo", isLoggedIn, isAdmin, async (req, res, next) => {
+//GET "/solicitud/catalogo/:categoria" => renderiza una vista con todas las solicitudes pendientes
+router.get("/catalogo/:categoria", isLoggedIn, isAdmin, async (req, res, next) => {
   console.log("usuario", req.session.user)
+  const categoriaEscogida = req.params.categoria;
   try {
-    const todasSolPend = await Solicitud.find({ estado: "pendiente" })
-      .populate("usuarioCreador")
 
-    res.render("solicitud/catalogo.hbs", { respuesta: todasSolPend, isLoggin: req.session.user._id });
+    if (categoriaEscogida === "todas") {
+      const todasSolPend = await Solicitud.find({ estado: "pendiente" })
+        .populate("usuarioCreador")
+      res.render("solicitud/catalogo.hbs", { respuesta: todasSolPend, isLoggin: req.session.user._id });
+    } else {
+      const todasSolPend = await Solicitud.find({ estado: "pendiente", categoria: categoriaEscogida })
+        .populate("usuarioCreador")
+      res.render("solicitud/catalogo.hbs", { respuesta: todasSolPend, isLoggin: req.session.user._id });
+    }
 
   } catch (error) {
     next(error);
   }
 });
 
+//POST "/solicitud/catalogo/:categoria" => esta ruta post procesa el boton de filtrado de la categoria segun lo que quiere el usuario
+router.post("/catalogo/filtro", isLoggedIn, (req, res, next) => {
+  const categoria = req.body.categoria;
+  res.redirect(`/solicitud/catalogo/${categoria}`);
+})
 
 // POST "/solicitud/:solicitudId/catalogo" => boton que al clicar cambia el estado de una solicitud de pendiente a en progreso
-router.post("/:solicitudId/catalogo", isLoggedIn, async (req, res, next) => {
+router.post("/:solicitudId/catalogo/", isLoggedIn, async (req, res, next) => {
   const solicitudId = req.params.solicitudId;
   const usuarioLogeado = req.session.user._id;
+
   try {
     await Solicitud.findByIdAndUpdate(solicitudId, {
       estado: "en progreso",

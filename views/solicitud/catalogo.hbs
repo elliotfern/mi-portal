@@ -2,9 +2,23 @@
 
   <h1>Catálogo de solicitudes pendientes</h1>
 
+  <form action="/solicitud/catalogo/filtro/" method="post">
+    <label for="categoria">Filtra por categória</label>
+    <select id="categoria" name="categoria">
+      <option value="otros">Otras</option>
+      <option value="bricolaje">Bricolaje</option>
+      <option value="cuidados">Cuidados</option>
+      <option value="mascotas">Mascotas</option>
+      <option value="transporte">Transporte</option>
+      <option value="alimentacion">Alimentacion</option>
+
+    </select>
+    <button type="submit">Filtrar</button>
+  </form>
+
   {{#each this.respuesta}}
   <div>
-    <h3>Título: {{this.titulo}}</h3>
+    <h3>{{this.titulo}}</h3>
     <p>Solicitante: <a href="/usuario/{{this.usuarioCreador._id}}/detalles">{{this.usuarioCreador.nombreCompleto}}</p>
     </a>
     <p>Descripción: {{this.descripcion}}</p>
