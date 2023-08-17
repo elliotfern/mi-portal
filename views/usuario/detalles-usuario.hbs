@@ -1,5 +1,5 @@
 <div class="container">
-  <h3>{{this.usuarioObj.nombreCompleto}}</h3>
+  <h3>Perfil público de: {{this.usuarioObj.nombreCompleto}}</h3>
   <p>Correo electrónico: {{this.usuarioObj.correo}}</p>
   <img src="{{this.usuarioObj.imagen}}" width="300px" />
   <br>
@@ -12,5 +12,12 @@
     <button class="btn btn-outline-primary"> <i class="fa fa-heart"></i> Añadir a favoritos</button>
   </form>
   {{/usuarioCreador}}
+
+
+  <hr>
+  <div class="col-md derecha">
+    <a href="/usuario/catalogo" class="btn btn-outline-primary" tabindex="-1" role="button" aria-disabled="true">Ver
+      todos los usuarios</a>
+  </div>
 
 </div>

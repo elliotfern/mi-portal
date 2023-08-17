@@ -1,51 +1,63 @@
 <div class="container">
-
   <h1>Catálogo de solicitudes pendientes</h1>
 
   <form action="/solicitud/catalogo/filtro/" method="post">
-    <label for="categoria">Filtra por categória</label>
-    <select id="categoria" name="categoria">
-      <option value="otros">Otras</option>
-      <option value="bricolaje">Bricolaje</option>
-      <option value="cuidados">Cuidados</option>
-      <option value="mascotas">Mascotas</option>
-      <option value="transporte">Transporte</option>
-      <option value="alimentacion">Alimentacion</option>
+    <div class="row g-3">
+      <div class="col-sm-7">
+        <select class="form-select" id="categoria" name="categoria">
+          <option value="todas">Selecciona una categoría:</option>
+          {{#each this.categoriaSeleccionada }}
+          {{#if this.isSelected}}
+          <option value="{{this.name}}" selected="true">{{this.name}}</option>
+          {{else }}
+          <option value="{{this.name}}">{{this.name}}</option>
+          {{/if}}
+          {{/each}}
+        </select>
+      </div>
+      <div class="col-sm">
+        <button class="btn btn-outline-primary" type="submit">Filtrar</button>
+      </div>
 
-    </select>
-    <button type="submit">Filtrar</button>
+    </div>
+
   </form>
 
   <div class="row g-3">
     {{#each this.respuesta}}
     <div class="col">
       <div class="card" style="width: 18rem;">
-        <img src="{{this.imagenSolicitud}}" class="card-img-top" alt="" />
+        <a href="/solicitud/{{this._id}}/detalles"><img src="{{this.imagenSolicitud}}" class="card-img-top"
+            alt="{{this.titulo}}" /></a>
         <div class="card-body">
           <h5 class="card-title">{{this.titulo}}</h5>
-          <p class="card-text">Solicitante: <a
+          <p class="card-text"><strong>Solicitante:</strong> <a
               href="/usuario/{{this.usuarioCreador._id}}/detalles">{{this.usuarioCreador.nombreCompleto}}</a></p>
-          <p class="card-text">Descripción: {{this.descripcion}}</p>
-          <a href="/solicitud/{{this._id}}/detalles">Ver más</a>
+          <p class="card-text"><strong>Descripción: </strong>{{this.descripcion}}</p>
+          <p class="card-text"><a href="/solicitud/{{this._id}}/detalles">Ver más</a></p>
 
           {{#usuarioCreador ../isLoggin this.usuarioCreador._id }}
           <form action="/solicitud/{{this._id}}/catalogo" method="post">
-            <button class="btn btn-outline-secondary">¡Yo me encargo!</button>
+            <p><button class="btn btn-outline-secondary">¡Yo me encargo!</button></p>
           </form>
           {{/usuarioCreador}}
-        </div>
 
-        {{#if ../isUserAdmin }}
-        <form action="/usuario/perfil/mis-solicitudes-prestadas" method="post">
-          <button>Eliminar solicitud</button>
-          <input type="hidden" name="_id" value="{{this._id}}">
+
+          {{#if ../isUserAdmin }}
+
+          <form action="/usuario/perfil/mis-solicitudes-prestadas" method="post">
+            <p><button class="btn btn-danger">Eliminar solicitud</button>
+              <input type="hidden" name="_id" value="{{this._id}}">
+            </p>
+        </div>
         </form>
         {{/if}}
 
       </div>
     </div>
-    {{/each}}
-
   </div>
+  {{/each}}
+
+</div>
 
 </div>

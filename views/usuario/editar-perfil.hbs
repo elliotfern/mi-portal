@@ -1,20 +1,29 @@
-<div>
+<div class="container">
+  <h2>Editar mi perfil de usuario</h2>
 
   <form action="/usuario/perfil/{{this.datosUsuario._id}}/edit" method="post">
 
-    <label for="nombreCompleto">Nombre completo</label>
-    <input
-      type="text"
-      name="nombreCompleto"
-      value="{{this.datosUsuario.nombreCompleto}}"
-    />
+    <div class="mb-3">
+      <label for="nombreCompleto">Nombre completo</label>
+      <input type="text" name="nombreCompleto" class="form-control" value="{{this.datosUsuario.nombreCompleto}}" />
+    </div>
 
-    <br />
 
-    <label for="correo">Email</label>
-    <input type="text" name="correo" value="{{this.datosUsuario.correo}}" />
+    <div class="mb-3">
+      <label for="correo">Email</label>
+      <input type="text" name="correo" class="form-control" value="{{this.datosUsuario.correo}}" />
+    </div>
 
-    <button>Confirmar</button>
+    <div class="row g-2">
+      <div class="col-md">
+        <button class="btn btn-outline-primary">Guardar cambios en el perfil</button>
+      </div>
+
+      <div class="col-md derecha">
+        <a href="/usuario/perfil" class="btn btn-outline-secondary" tabindex="-1" role="button"
+          aria-disabled="true">Cancelar</a>
+      </div>
+    </div>
 
   </form>
 </div>

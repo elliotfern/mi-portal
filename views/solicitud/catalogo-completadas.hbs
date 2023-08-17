@@ -5,27 +5,30 @@
     {{#each this.solicitudesCompletadas}}
     <div class="col">
       <div class="card" style="width: 18rem;">
-        <img src="{{this.imagenSolicitud}}" class="card-img-top" alt="" />
+        <a href="/solicitud/{{this._id}}/detalles"><img src="{{this.imagenSolicitud}}" class="card-img-top"
+            alt="{{this.titulo}}" /></a>
         <div class="card-body">
           <h5 class="card-title">{{this.titulo}}</h5>
-          <p class="card-text">Solicitante: <a
+          <p class="card-text"><strong>Solicitante:</strong> <a
               href="/usuario/{{this.usuarioCreador._id}}/detalles">{{this.usuarioCreador.nombreCompleto}}</a></p>
-          <p class="card-text">Prestante: <a
+          <p class="card-text"><strong>Prestante:</strong> <a
               href="/usuario/{{this.usuarioPrestante._id}}/detalles">{{this.usuarioPrestante.nombreCompleto}}</p></a>
-          <p class="card-text">Descripción: {{this.descripcion}}</p>
-          <a href="/solicitud/{{this._id}}/detalles">Ver más</a>
+          <p class="card-text"><strong>Descripción: </strong>{{this.descripcion}}</p>
+          <p><a href="/solicitud/{{this._id}}/detalles">Ver más</a></p>
 
-          {{#if ../isUserAdmin }}
+          <p>
+            {{#if ../isUserAdmin }}
           <form action="/usuario/perfil/mis-solicitudes-prestadas" method="post">
-            <button>Eliminar solicitud</button>
+            <button class="btn btn-danger">Eliminar solicitud</button>
             <input type="hidden" name="_id" value="{{this._id}}">
           </form>
           {{/if}}
 
         </div>
       </div>
-      {{/each}}
-
     </div>
+    {{/each}}
 
   </div>
+
+</div>

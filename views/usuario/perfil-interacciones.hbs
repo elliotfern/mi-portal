@@ -9,10 +9,14 @@
         <h4>{{this.nombreCompleto}}</h4>
         <a href="/usuario/{{this._id}}/detalles"><img src="{{this.imagen}}" alt="" width="200px" /></a>
         <p><a href="/usuario/{{this._id}}/detalles">Ver perfil</a></p>
-        <hr />
       </div>
     </div>
     {{/each}}
   </div>
 
+  <hr>
+  <div class="col-md derecha">
+    <a href="/usuario/perfil" class="btn btn-outline-secondary" tabindex="-1" role="button" aria-disabled="true">Volver
+      a mi perfil</a>
+  </div>
 </div>

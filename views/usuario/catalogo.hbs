@@ -6,7 +6,8 @@
     {{#each this.todosUsuarios}}
     <div class="col">
       <div class="card" style="width: 18rem;">
-        <img src="{{this.imagen}}" class="card-img-top" alt="" />
+        <a href="/usuario/{{this._id}}/detalles"><img src="{{this.imagen}}" class="card-img-top"
+            alt="{{this.nombreCompleto}}" /></a>
         <div class="card-body">
           <h5 class="card-title">{{this.nombreCompleto}}</h5>
           <a href="/usuario/{{this._id}}/detalles">Ver perfil completo</a>

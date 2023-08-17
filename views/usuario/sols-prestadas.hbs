@@ -1,30 +1,44 @@
-<div>
+<div class="container">
 
   <h1>Mis solicitudes prestadas en curso</h1>
 
-  {{#each this.solEnProg}}
-  <div>
-    <h3>Título: {{this.titulo}}</h3>
-    <p>Descripción: {{this.descripcion}}</p>
-    <p>Prestante: {{this.usuarioPrestante.nombreCompleto}}</p>
-    <p>Solicitante: {{this.usuarioCreador.nombreCompleto}}</p>
-    <img src="{{this.imagenSolicitud}}" alt="" width="300px" />
+  <div class="row g-3">
+    {{#each this.solEnProg}}
+    <div class="col">
+      <div class="card" style="width: 18rem;">
+        <a href="/solicitud/{{this._id}}/detalles"><img src="{{this.imagenSolicitud}}" alt="{{this.titulo}}"
+            width="100%" /></a>
+        <div class="card-body">
+          <h5 class="card-title">Título: {{this.titulo}}</h5>
+          <p><strong>Descripción: </strong>{{this.descripcion}}</p>
+          <p><strong>Prestante: </strong>{{this.usuarioPrestante.nombreCompleto}}</p>
+          <p><strong>Solicitante:</strong> <a
+              href="/usuario/{{this.usuarioCreador._id}}/detalles">{{this.usuarioCreador.nombreCompleto}}</a></p>
+          <p><a href="/solicitud/{{this._id}}/detalles">Ver más</a></p>
 
-    <form action="/usuario/perfil/mis-solicitudes-prestadas/conversacion" method="post">
-      <button>¡Envia un mensaje a {{this.usuarioCreador.nombreCompleto}}!</button>
-      <input type="hidden" name="idSolicitud" value="{{this._id}}">
-      <input type="hidden" name="idUsuarioCreador" value="{{this.usuarioCreador._id}}">
-      <input type="hidden" name="idUsuarioPrestante" value="{{this.usuarioPrestante._id}}">
-    </form>
+          <form action="/usuario/perfil/mis-solicitudes-prestadas/conversacion" method="post">
+            <button class="btn btn-outline-primary">¡Envia un mensaje a {{this.usuarioCreador.nombreCompleto}}!</button>
+            <input type="hidden" name="idSolicitud" value="{{this._id}}">
+            <input type="hidden" name="idUsuarioCreador" value="{{this.usuarioCreador._id}}">
+            <input type="hidden" name="idUsuarioPrestante" value="{{this.usuarioPrestante._id}}">
+          </form>
 
-    <br>
+          <form action="/usuario/perfil/mis-solicitudes-prestadas/mensajes" method="post">
+            <button class="btn btn-outline-secondary">Ver conversación</button>
+            <input type="hidden" name="idSolicitud" value="{{this._id}}">
+          </form>
 
-    <form action="/usuario/perfil/mis-solicitudes-prestadas/mensajes" method="post">
-      <button>Ver conversación</button>
-      <input type="hidden" name="idSolicitud" value="{{this._id}}">
-    </form>
+        </div>
+      </div>
+    </div>
+    {{/each}}
 
   </div>
-  {{/each}}
 
+  <hr>
+
+  <div class="col-md derecha">
+    <a href="/usuario/perfil" class="btn btn-outline-secondary" tabindex="-1" role="button" aria-disabled="true">Volver
+      a mi perfil</a>
+  </div>
 </div>

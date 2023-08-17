@@ -153,16 +153,42 @@ router.get("/catalogo/completadas", isLoggedIn, isAdmin, async (req, res, next) 
 router.get("/catalogo/pendientes/:categoria", isLoggedIn, isAdmin, async (req, res, next) => {
   console.log("usuario", req.session.user)
   const categoriaEscogida = req.params.categoria;
+
+  const categorias = [
+    { name: "bricolaje", isSelected: false },
+    { name: "cuidados", isSelected: false },
+    { name: "mascotas", isSelected: false },
+    { name: "transporte", isSelected: false },
+    { name: "alimentacion", isSelected: false },
+    { name: "otros", isSelected: false },
+  ];
+
   try {
 
     if (categoriaEscogida === "todas") {
       const todasSolPend = await Solicitud.find({ estado: "pendiente" })
         .populate("usuarioCreador")
-      res.render("solicitud/catalogo.hbs", { respuesta: todasSolPend, isLoggin: req.session.user._id });
+
+      const cloneSolicitudes = JSON.parse(JSON.stringify(categorias));
+
+      res.render("solicitud/catalogo.hbs", { respuesta: todasSolPend, isLoggin: req.session.user._id, categoriaSeleccionada: cloneSolicitudes, });
     } else {
       const todasSolPend = await Solicitud.find({ estado: "pendiente", categoria: categoriaEscogida })
         .populate("usuarioCreador")
-      res.render("solicitud/catalogo.hbs", { respuesta: todasSolPend, isLoggin: req.session.user._id });
+      console.log(categoriaEscogida)
+
+      const cloneSolicitudes = JSON.parse(JSON.stringify(categorias));
+
+      cloneSolicitudes.forEach((eachCategoria) => {
+        if (
+          categoriaEscogida.toString() === eachCategoria.name.toString()
+        ) {
+          eachCategoria.isSelected = true;
+          console.log("la categoria seleccionada es: ", eachCategoria);
+        }
+      });
+
+      res.render("solicitud/catalogo.hbs", { respuesta: todasSolPend, isLoggin: req.session.user._id, categoriaSeleccionada: cloneSolicitudes, });
     }
 
   } catch (error) {
@@ -200,7 +226,7 @@ router.post("/:solicitudId/catalogo/completada", isLoggedIn, async (req, res, ne
     await Solicitud.findByIdAndUpdate(solicitudId, {
       estado: "completado",
     });
-    res.redirect("/solicitud/catalogo/pendientes/todas");
+    res.redirect("/usuario/perfil");
   } catch (error) {
     next(error);
   }

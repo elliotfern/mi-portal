@@ -1,15 +1,31 @@
-<div>
+<div class="container">
 
   <h1>Historial de solicitudes prestantes completadas</h1>
 
-  {{#each this.solCompletadas}}
-    <div>
-      <h3>Título: {{this.titulo}}</h3>
-      <p>Descripción: {{this.descripcion}}</p>
-      <p>Prestante: {{this.usuarioPrestante.nombreCompleto}}</p>
-      <p>Solicitante: {{this.usuarioCreador.nombreCompleto}}</p>
-      <img src="{{this.imagenSolicitud}}" alt="" width="300px" />
-    </div>
-  {{/each}}
+  <div class="row g-3">
+    {{#each this.solCompletadas}}
+    <div class="col">
+      <div class="card" style="width: 18rem;">
+        <a href="/solicitud/{{this._id}}/detalles"><img src="{{this.imagenSolicitud}}" class="card-img-top"
+            alt="{{this.nombre}}" /></a>
+        <div class="card-body">
+          <h3>{{this.titulo}}</h3>
+          <p>Descripción: {{this.descripcion}}</p>
+          <p>Prestante: {{this.usuarioPrestante.nombreCompleto}}</p>
+          <p>Solicitante: {{this.usuarioCreador.nombreCompleto}}</p>
+          <a href="/solicitud/{{this._id}}/detalles">Ver más</a>
 
+        </div>
+      </div>
+    </div>
+    {{/each}}
+
+  </div>
+
+
+  <hr>
+  <div class="col-md derecha">
+    <a href="/usuario/perfil" class="btn btn-outline-secondary" tabindex="-1" role="button" aria-disabled="true">Volver
+      a mi perfil</a>
+  </div>
 </div>

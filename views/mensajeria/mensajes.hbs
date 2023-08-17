@@ -10,7 +10,16 @@
         <input type="hidden" name="idUsuarioCreador" value="{{this.creadorId}}">
         <input type="hidden" name="idUsuarioPrestante" value="{{this.prestanteId}}">
 
-        <button class="btn btn-outline-primary">Enviar mensaje</button>
+        <div class="row g-2">
+            <div class="col-md">
+                <button class="btn btn-outline-primary">Enviar mensaje</button>
+            </div>
+
+            <div class="col-md derecha">
+                <a href="/usuario/perfil/mis-solicitudes-prestadas" class="btn btn-outline-secondary" tabindex="-1"
+                    role="button" aria-disabled="true">Cancelar</a>
+            </div>
+        </div>
 
     </form>
 
