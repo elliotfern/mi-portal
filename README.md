@@ -2,8 +2,6 @@
 
 ## [See the App!](https://mi-portal.adaptable.app/)
 
-![App Logo](your-image-logo-path-or-name)
-
 ## Descripción
 
 Mi Portal es una comunidad virtual privada para poner en contacto vecinos de una misma comunidad o ciudad. A través de la web se pueden pedir favores y ofrecerse para solucionar los problemas de los vecinos. Además con el sistema de mensajería integrado los usuarios se pueden enviar mensajes para mantener una conversación fluida.
